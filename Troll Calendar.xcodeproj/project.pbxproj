@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A706CACF16AA0AC8002DDF0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CACE16AA0AC8002DDF0A /* UIKit.framework */; };
+		A706CAD116AA0AC8002DDF0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CAD016AA0AC8002DDF0A /* Foundation.framework */; };
+		A706CAD316AA0AC8002DDF0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CAD216AA0AC8002DDF0A /* CoreGraphics.framework */; };
+		A706CAD916AA0AC8002DDF0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A706CAD716AA0AC8002DDF0A /* InfoPlist.strings */; };
+		A706CADB16AA0AC8002DDF0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CADA16AA0AC8002DDF0A /* main.m */; };
+		A706CADF16AA0AC8002DDF0A /* trollcalendarAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CADE16AA0AC8002DDF0A /* trollcalendarAppDelegate.m */; };
+		A706CAE116AA0AC8002DDF0A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAE016AA0AC8002DDF0A /* Default.png */; };
+		A706CAE316AA0AC8002DDF0A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAE216AA0AC8002DDF0A /* Default@2x.png */; };
+		A706CAE516AA0AC8002DDF0A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAE416AA0AC8002DDF0A /* Default-568h@2x.png */; };
+		A706CAE816AA0AC8002DDF0A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A706CAE616AA0AC8002DDF0A /* MainStoryboard_iPhone.storyboard */; };
+		A706CAEB16AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A706CAE916AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard */; };
+		A706CAEE16AA0AC8002DDF0A /* trollcalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CAED16AA0AC8002DDF0A /* trollcalendarViewController.m */; };
+		A706CAF516AA0B34002DDF0A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CAF416AA0B34002DDF0A /* QuartzCore.framework */; };
+		A706CAF716AA0B3E002DDF0A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CAF616AA0B3E002DDF0A /* CoreLocation.framework */; };
+		A706CAFC16AA0BA3002DDF0A /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAF816AA0BA3002DDF0A /* Icon-72.png */; };
+		A706CAFD16AA0BA3002DDF0A /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAF916AA0BA3002DDF0A /* Icon-Small.png */; };
+		A706CAFE16AA0BA3002DDF0A /* Icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAFA16AA0BA3002DDF0A /* Icon57.png */; };
+		A706CAFF16AA0BA3002DDF0A /* Icon144.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAFB16AA0BA3002DDF0A /* Icon144.png */; };
+		A706CB0216AA0C0A002DDF0A /* TrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0116AA0C0A002DDF0A /* TrollCalendarView.m */; };
+		A706CB0516AA0C34002DDF0A /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0416AA0C34002DDF0A /* Tower.m */; };
+		A706CB0816AA0C51002DDF0A /* platform.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0716AA0C51002DDF0A /* platform.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A706CACA16AA0AC8002DDF0A /* Troll Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Troll Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A706CACE16AA0AC8002DDF0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A706CAD016AA0AC8002DDF0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A706CAD216AA0AC8002DDF0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A706CAD616AA0AC8002DDF0A /* Troll Calendar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Troll Calendar-Info.plist"; sourceTree = "<group>"; };
+		A706CAD816AA0AC8002DDF0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A706CADA16AA0AC8002DDF0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A706CADC16AA0AC8002DDF0A /* Troll Calendar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Troll Calendar-Prefix.pch"; sourceTree = "<group>"; };
+		A706CADD16AA0AC8002DDF0A /* trollcalendarAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = trollcalendarAppDelegate.h; sourceTree = "<group>"; };
+		A706CADE16AA0AC8002DDF0A /* trollcalendarAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trollcalendarAppDelegate.m; sourceTree = "<group>"; };
+		A706CAE016AA0AC8002DDF0A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		A706CAE216AA0AC8002DDF0A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		A706CAE416AA0AC8002DDF0A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A706CAE716AA0AC8002DDF0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		A706CAEA16AA0AC8002DDF0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		A706CAEC16AA0AC8002DDF0A /* trollcalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = trollcalendarViewController.h; sourceTree = "<group>"; };
+		A706CAED16AA0AC8002DDF0A /* trollcalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trollcalendarViewController.m; sourceTree = "<group>"; };
+		A706CAF416AA0B34002DDF0A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A706CAF616AA0B3E002DDF0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A706CAF816AA0BA3002DDF0A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		A706CAF916AA0BA3002DDF0A /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		A706CAFA16AA0BA3002DDF0A /* Icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon57.png; sourceTree = "<group>"; };
+		A706CAFB16AA0BA3002DDF0A /* Icon144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon144.png; sourceTree = "<group>"; };
+		A706CB0016AA0C0A002DDF0A /* TrollCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrollCalendarView.h; sourceTree = "<group>"; };
+		A706CB0116AA0C0A002DDF0A /* TrollCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrollCalendarView.m; sourceTree = "<group>"; };
+		A706CB0316AA0C34002DDF0A /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tower.h; sourceTree = "<group>"; };
+		A706CB0416AA0C34002DDF0A /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tower.m; sourceTree = "<group>"; };
+		A706CB0616AA0C51002DDF0A /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		A706CB0716AA0C51002DDF0A /* platform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A706CAC716AA0AC8002DDF0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A706CAF716AA0B3E002DDF0A /* CoreLocation.framework in Frameworks */,
+				A706CAF516AA0B34002DDF0A /* QuartzCore.framework in Frameworks */,
+				A706CACF16AA0AC8002DDF0A /* UIKit.framework in Frameworks */,
+				A706CAD116AA0AC8002DDF0A /* Foundation.framework in Frameworks */,
+				A706CAD316AA0AC8002DDF0A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A706CABF16AA0AC8002DDF0A = {
+			isa = PBXGroup;
+			children = (
+				A706CAD416AA0AC8002DDF0A /* Troll Calendar */,
+				A706CACD16AA0AC8002DDF0A /* Frameworks */,
+				A706CACB16AA0AC8002DDF0A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A706CACB16AA0AC8002DDF0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A706CACA16AA0AC8002DDF0A /* Troll Calendar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A706CACD16AA0AC8002DDF0A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A706CAF616AA0B3E002DDF0A /* CoreLocation.framework */,
+				A706CAF416AA0B34002DDF0A /* QuartzCore.framework */,
+				A706CACE16AA0AC8002DDF0A /* UIKit.framework */,
+				A706CAD016AA0AC8002DDF0A /* Foundation.framework */,
+				A706CAD216AA0AC8002DDF0A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A706CAD416AA0AC8002DDF0A /* Troll Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				A706CADD16AA0AC8002DDF0A /* trollcalendarAppDelegate.h */,
+				A706CADE16AA0AC8002DDF0A /* trollcalendarAppDelegate.m */,
+				A706CAE616AA0AC8002DDF0A /* MainStoryboard_iPhone.storyboard */,
+				A706CAE916AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard */,
+				A706CAEC16AA0AC8002DDF0A /* trollcalendarViewController.h */,
+				A706CAED16AA0AC8002DDF0A /* trollcalendarViewController.m */,
+				A706CB0016AA0C0A002DDF0A /* TrollCalendarView.h */,
+				A706CB0116AA0C0A002DDF0A /* TrollCalendarView.m */,
+				A706CB0316AA0C34002DDF0A /* Tower.h */,
+				A706CB0416AA0C34002DDF0A /* Tower.m */,
+				A706CB0616AA0C51002DDF0A /* platform.h */,
+				A706CB0716AA0C51002DDF0A /* platform.m */,
+				A706CAD516AA0AC8002DDF0A /* Supporting Files */,
+			);
+			path = "Troll Calendar";
+			sourceTree = "<group>";
+		};
+		A706CAD516AA0AC8002DDF0A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A706CAF816AA0BA3002DDF0A /* Icon-72.png */,
+				A706CAF916AA0BA3002DDF0A /* Icon-Small.png */,
+				A706CAFA16AA0BA3002DDF0A /* Icon57.png */,
+				A706CAFB16AA0BA3002DDF0A /* Icon144.png */,
+				A706CAD616AA0AC8002DDF0A /* Troll Calendar-Info.plist */,
+				A706CAD716AA0AC8002DDF0A /* InfoPlist.strings */,
+				A706CADA16AA0AC8002DDF0A /* main.m */,
+				A706CADC16AA0AC8002DDF0A /* Troll Calendar-Prefix.pch */,
+				A706CAE016AA0AC8002DDF0A /* Default.png */,
+				A706CAE216AA0AC8002DDF0A /* Default@2x.png */,
+				A706CAE416AA0AC8002DDF0A /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A706CAC916AA0AC8002DDF0A /* Troll Calendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A706CAF116AA0AC8002DDF0A /* Build configuration list for PBXNativeTarget "Troll Calendar" */;
+			buildPhases = (
+				A706CAC616AA0AC8002DDF0A /* Sources */,
+				A706CAC716AA0AC8002DDF0A /* Frameworks */,
+				A706CAC816AA0AC8002DDF0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Troll Calendar";
+			productName = "Troll Calendar";
+			productReference = A706CACA16AA0AC8002DDF0A /* Troll Calendar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A706CAC116AA0AC8002DDF0A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = trollcalendar;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Victor Engel";
+			};
+			buildConfigurationList = A706CAC416AA0AC8002DDF0A /* Build configuration list for PBXProject "Troll Calendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A706CABF16AA0AC8002DDF0A;
+			productRefGroup = A706CACB16AA0AC8002DDF0A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A706CAC916AA0AC8002DDF0A /* Troll Calendar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A706CAC816AA0AC8002DDF0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A706CAD916AA0AC8002DDF0A /* InfoPlist.strings in Resources */,
+				A706CAE116AA0AC8002DDF0A /* Default.png in Resources */,
+				A706CAE316AA0AC8002DDF0A /* Default@2x.png in Resources */,
+				A706CAE516AA0AC8002DDF0A /* Default-568h@2x.png in Resources */,
+				A706CAE816AA0AC8002DDF0A /* MainStoryboard_iPhone.storyboard in Resources */,
+				A706CAEB16AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard in Resources */,
+				A706CAFC16AA0BA3002DDF0A /* Icon-72.png in Resources */,
+				A706CAFD16AA0BA3002DDF0A /* Icon-Small.png in Resources */,
+				A706CAFE16AA0BA3002DDF0A /* Icon57.png in Resources */,
+				A706CAFF16AA0BA3002DDF0A /* Icon144.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A706CAC616AA0AC8002DDF0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A706CADB16AA0AC8002DDF0A /* main.m in Sources */,
+				A706CADF16AA0AC8002DDF0A /* trollcalendarAppDelegate.m in Sources */,
+				A706CAEE16AA0AC8002DDF0A /* trollcalendarViewController.m in Sources */,
+				A706CB0216AA0C0A002DDF0A /* TrollCalendarView.m in Sources */,
+				A706CB0516AA0C34002DDF0A /* Tower.m in Sources */,
+				A706CB0816AA0C51002DDF0A /* platform.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A706CAD716AA0AC8002DDF0A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A706CAD816AA0AC8002DDF0A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A706CAE616AA0AC8002DDF0A /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A706CAE716AA0AC8002DDF0A /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		A706CAE916AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A706CAEA16AA0AC8002DDF0A /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A706CAEF16AA0AC8002DDF0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A706CAF016AA0AC8002DDF0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A706CAF216AA0AC8002DDF0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Troll Calendar/Troll Calendar-Prefix.pch";
+				INFOPLIST_FILE = "Troll Calendar/Troll Calendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A706CAF316AA0AC8002DDF0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Troll Calendar/Troll Calendar-Prefix.pch";
+				INFOPLIST_FILE = "Troll Calendar/Troll Calendar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A706CAC416AA0AC8002DDF0A /* Build configuration list for PBXProject "Troll Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A706CAEF16AA0AC8002DDF0A /* Debug */,
+				A706CAF016AA0AC8002DDF0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A706CAF116AA0AC8002DDF0A /* Build configuration list for PBXNativeTarget "Troll Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A706CAF216AA0AC8002DDF0A /* Debug */,
+				A706CAF316AA0AC8002DDF0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A706CAC116AA0AC8002DDF0A /* Project object */;
+}
