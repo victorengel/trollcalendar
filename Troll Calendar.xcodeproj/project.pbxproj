@@ -348,6 +348,7 @@
 				A706CAF316AA0AC8002DDF0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
