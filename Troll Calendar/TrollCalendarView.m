@@ -31,7 +31,8 @@
 - (void)oneFingerDoubleTapped:(UITapGestureRecognizer*)recognizer{
    NSLog(@"### TrollCalendarView oneFingerDoubleTapped");
    //NSLog(@"DoubleTapped");
-   displayedDate = [NSDate date];
+   self.displayedDate = [NSDate date];
+   self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
@@ -39,43 +40,104 @@
 - (void)oneFingerSingleTapped:(UITapGestureRecognizer*)recognizer{
    //Add descriptive text.
    NSLog(@"### TrollCalendarView oneFingerSingleTapped");
-
+   //Check if the text is already displayed. If so, remove it. Otherwise display it.
+   BOOL helpTextAlreadyDisplayed = NO;
+   UILabel *existingLabel;
+   for (UIView *existingDecoration in self.superview.subviews) {
+      if (existingDecoration.tag == 3333) {
+         for (existingLabel in self.superview.subviews) {
+            if (existingLabel.tag == 3333) {
+               [existingLabel removeFromSuperview];
+               helpTextAlreadyDisplayed = YES;
+            }
+         }
+         [existingDecoration removeFromSuperview];
+      }
+   }
+   if (!helpTextAlreadyDisplayed) {
+      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"helpText"
+                                                           ofType:@""];
+      NSString *helpText = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSASCIIStringEncoding error:nil];
+      NSLog(@"The text is %@##############",helpText);
+      UILabel * helpTextView = [[UILabel alloc]init];
+      helpTextView.numberOfLines = 0;
+      helpTextView.text = helpText;
+      [helpTextView sizeToFit];
+      helpTextView.tag = 3333;
+      //helpTextView.textAlignment = NSTextAlignmentJustified;
+      //helpTextView.center = self.superview.center;
+      UIView *textDecoration = [[UIView alloc]init];
+      textDecoration.frame =
+      CGRectMake(0.0,
+                 0.0,
+                 helpTextView.frame.size.width*1.2,
+                 helpTextView.frame.size.height*1.2);
+      textDecoration.backgroundColor = helpTextView.backgroundColor;
+      helpTextView.center = textDecoration.center;
+      [textDecoration addSubview:helpTextView];
+      textDecoration.tag = 3333;
+      textDecoration.center = self.superview.center;
+      //Change the scale if needed.
+      NSLog(@"bounds of self.superview are %@",NSStringFromCGRect(self.superview.bounds));
+      float maxHeight = self.superview.bounds.size.height * 0.75;
+      float maxWidth = self.superview.bounds.size.width * 0.75;
+      maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.75;
+      maxWidth = [[UIScreen mainScreen] bounds].size.width * 0.75;
+      float actHeight = textDecoration.frame.size.height;
+      float actWidth = textDecoration.frame.size.width;
+      float scale = 1.0;
+      if (actHeight > maxHeight) {
+         scale = maxHeight/actHeight;
+      }
+      if (scale*actWidth > maxWidth) {
+         scale = maxWidth/actWidth;
+      }
+      textDecoration.transform = CGAffineTransformMakeScale(scale, scale);
+      [self.superview addSubview:textDecoration];
+      [self.superview bringSubviewToFront:textDecoration];
+   }
+   self.gesturePerformed = [NSDate date];
 }
 
 - (void)rightSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    NSLog(@"### TrollCalendarView rightSwipeHandle");
    //Now add code to go to the next date and refresh.
-   displayedDate = [displayedDate dateByAddingTimeInterval:-24*60*60];
+   displayedDate = [displayedDate dateByAddingTimeInterval:-24.0*60.0*60.0];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   self.gesturePerformed = [NSDate date];
 }
 
 - (void)leftSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    NSLog(@"### TrollCalendarView leftSwipeHandle");
    //Now add code to go to the previous date and refresh.
-   displayedDate = [displayedDate dateByAddingTimeInterval:24*60*60];
+   displayedDate = [displayedDate dateByAddingTimeInterval:24.0*60.0*60.0];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   self.gesturePerformed = [NSDate date];
 }
 
 - (void)upSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    NSLog(@"### TrollCalendarView upSwipeHandle");
    //Now add code to jump 73 days.
-   displayedDate = [displayedDate dateByAddingTimeInterval:73*24*60*60];
+   displayedDate = [displayedDate dateByAddingTimeInterval:-73.0*24.0*60.0*60.0];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   self.gesturePerformed = [NSDate date];
 }
 
 - (void)downSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    NSLog(@"### TrollCalendarView downSwipeHandle");
    //Now add code to jump 73 days.
-   displayedDate = [displayedDate dateByAddingTimeInterval:-73*24*60*60];
+   displayedDate = [displayedDate dateByAddingTimeInterval:73.0*24.0*60.0*60.0];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   self.gesturePerformed = [NSDate date];
 }
 - (void)pinch:(UIPinchGestureRecognizer*)pinch{
    NSLog(@"### TrollCalendarView pinch");
    self.transform = CGAffineTransformMakeScale(pinch.scale, pinch.scale);
+   self.gesturePerformed = [NSDate date];
 }
 - (void)pan:(UIPanGestureRecognizer*)pan{
    CGPoint originalPoint;
@@ -87,12 +149,21 @@
    }
    CGPoint translation = [pan translationInView:self.superview];
    self.center = CGPointMake(originalPoint.x+translation.x, originalPoint.y+translation.y);
+   self.gesturePerformed = [NSDate date];
 }
 - (void)tomorrowTimerDidFire:(NSTimer *)timer {
    NSLog(@"### TrollCalendarView tomorrowTimerDidFire");
    //[self.subviews  makeObjectsPerformSelector:@selector(setNeedsDisplay)];
-   self.displayedDate = [NSDate date];
-   [self displayTheDate];
+   //Skip this method of there was a gesture in the last minute.
+   NSDate *lastGesturePerformed = self.gesturePerformed;
+   NSDate *rightNow = [NSDate date];
+   float timeElapsed = [lastGesturePerformed timeIntervalSinceNow];
+   NSLog(@"Time elapsed: %f",timeElapsed);
+   if ((timeElapsed < -60.0)||!lastGesturePerformed) {
+      NSLog(@"Ding");
+      self.displayedDate = rightNow;
+      [self displayTheDate];
+   }
 }
 - (void) layoutSubviews
 {
@@ -119,7 +190,7 @@
    [self addGestureRecognizer:recognizerUp];
    
    UISwipeGestureRecognizer *recognizerDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(upSwipeHandle:)];
+                                                                                        action:@selector(downSwipeHandle:)];
    [recognizerDown setDirection:(UISwipeGestureRecognizerDirectionDown)];
    [recognizerDown setNumberOfTouchesRequired:1];
    [self addGestureRecognizer:recognizerDown];
@@ -280,6 +351,7 @@
          [dateLabel removeFromSuperview];
       }
    }
+   dateString = [dateString stringByAppendingString:@" E:+1 W:-1 N:+73 S:-73"];
    if (dateString != previousValue) {
       // The date has changed. Redisplay the calendar
       [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];

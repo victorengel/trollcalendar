@@ -1,0 +1,32 @@
+A troll sits in the center of a set of seven platforms.
+Each platform contains nine tiles, each with a specific size.
+At midnight each night, the troll moves one tile on each
+platform, following the rules for the Towers of Hanoi puzzle.
+
+Five times a year, the tiles arrange in a single stack. One
+of these times of year is the spring equinox, when the sun's
+shadow aligns with the edge of the tile away from the equator.
+
+The app starts out displaying the configuration for the date
+the app was started. The user may use certain gestures to see
+what will happen on other dates. Following is a list of all
+the gestures recognized by the app.
+
+Single tap displays this help screen.
+
+Double tap resets the configuration to today's date.
+
+Swipe toward the east advances one day.
+
+Swipe toward the west goes backward one day.
+
+Swipe toward the north advances 73 days.
+
+Swipe toward the south goes backward 73 days.
+
+Pinch allows the user to zoom in or out.
+
+Pan allows the user to move the display (not needed on iPad).
+
+After one minute of no gestures, the app reverts to the current
+date. The configuration will automatically change at midnight.
