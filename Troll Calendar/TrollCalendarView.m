@@ -29,6 +29,7 @@
 @synthesize displayedDate;
 
 - (void)oneFingerDoubleTapped:(UITapGestureRecognizer*)recognizer{
+   NSLog(@"### TrollCalendarView oneFingerDoubleTapped");
    //NSLog(@"DoubleTapped");
    displayedDate = [NSDate date];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
@@ -36,39 +37,47 @@
 
 - (void)oneFingerSingleTapped:(UITapGestureRecognizer*)recognizer{
    //Add descriptive text.
-   
+   NSLog(@"### TrollCalendarView oneFingerSingleTapped");
+
 }
 
 - (void)rightSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
+   NSLog(@"### TrollCalendarView rightSwipeHandle");
    //Now add code to go to the next date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:-24*60*60];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 - (void)leftSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
+   NSLog(@"### TrollCalendarView leftSwipeHandle");
    //Now add code to go to the previous date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:24*60*60];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 - (void)upSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
+   NSLog(@"### TrollCalendarView upSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:73*24*60*60];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 - (void)downSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
+   NSLog(@"### TrollCalendarView downSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:-73*24*60*60];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 - (void)tomorrowTimerDidFire:(NSTimer *)timer {
+   NSLog(@"### TrollCalendarView tomorrowTimerDidFire");
    [self.subviews  makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 - (void) layoutSubviews
 {
-   //Initialize displayedDate.
-   displayedDate = [NSDate date];
+}
+-(void)setupGestureRecognizers
+{
+   NSLog(@"Add gesture recognizers");
    // Try adding touch recognizer here.
    //UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]
    //                                   initWithTarget:self action:@selector()];
@@ -109,8 +118,19 @@
    [oneFingerSingleTap setNumberOfTouchesRequired:1];
    [oneFingerSingleTap requireGestureRecognizerToFail:oneFingerDoubleTap];
    [self addGestureRecognizer:oneFingerSingleTap];
-   
+   NSLog(@"Finished setting up gesture recognizers");
+}
+-(void)viewDidLoad
+{
+   NSLog(@"### TrollCalendarView - viewDidLoad");
+}
+-(void)addPlatforms {
+   NSLog(@"### TrollCalendarView - addPlatforms");
+   displayedDate = [NSDate date];
+   self.NumPlatforms = 7;
+   NSLog(@"Set up the platforms. Number of platforms: %d",self.NumPlatforms);
    for (NSInteger index=0;index < self.NumPlatforms;index++){
+      NSLog(@"Working on platform %d of %d",index,self.NumPlatforms);
       PlatformView* pView = [[PlatformView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds)-750./2, CGRectGetMidY(self.bounds)-750./2, 750., 750.)];
       pView.backgroundColor = [UIColor clearColor];
       [self addSubview:pView];
@@ -140,6 +160,12 @@
          }
       }
    }
+}
+
+-(void)wasInLayoutSubviews
+{
+   NSLog(@"### TrollCalendarView layoutSubviews");
+   //Initialize displayedDate.
    //Set up timer to refresh upon date change.
    NSCalendar *calendar = [NSCalendar currentCalendar];
    NSDateComponents *todayComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
@@ -161,9 +187,11 @@
    self = [super initWithFrame:frame];
    if (self) {
       // Initialization code
+      NSLog(@"### TrollCalendarView initWithFrame -- set up location manager");
       locationManager=[[CLLocationManager alloc] init];
       locationManager.desiredAccuracy = kCLLocationAccuracyBest;
       locationManager.delegate=self;
+      NSLog(@"Location manager delegate set to TrollCalendarView");
       //Start the compass updates.
       [locationManager startUpdatingLocation];
       [locationManager startUpdatingHeading];
@@ -185,6 +213,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
+   //NSLog(@"### TrollCalendarView - locationManager:didUpdateHeading: %@",newHeading);
    float radianheading = (180-newHeading.trueHeading) * M_PI / 180;
    //Now rotate the appropriate view(s).
    CGAffineTransform transformTrollCalendar = CGAffineTransformMakeRotation(radianheading);

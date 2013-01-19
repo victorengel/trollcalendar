@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSDate *displayedDate; // This is the date currently being displayed. When the current
                                                      // date doesn't match this date, a refresh is done and this property
                                                      // is set to the new date.
+-(void)addPlatforms;
 
 @end
 CLLocationManager *locationManager;
