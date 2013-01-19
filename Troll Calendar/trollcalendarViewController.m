@@ -30,6 +30,8 @@
    cView.backgroundColor = [UIColor lightGrayColor];
    [cView addPlatforms];
    NSLog(@"Adding a TrollCalendarView");
+   NSLog(@"TrollCalendarView frame is: %@",NSStringFromCGRect(cView.frame));
+   NSLog(@"Center of TrollCalendarView is: %@",NSStringFromCGPoint(cView.center));
    cView.center = self.view.center;
    [self.view addSubview:cView];
 }

@@ -196,6 +196,8 @@
       [locationManager startUpdatingLocation];
       [locationManager startUpdatingHeading];
       //NSLog(@"TrollCalendarView initWithFrame");
+      //Set up gesture recognizers
+      [self setupGestureRecognizers];
    }
    return self;
 }
