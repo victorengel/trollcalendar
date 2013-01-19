@@ -27,6 +27,7 @@
    groundRect.size.height += 600;
    NSLog(@"Initializing TrollCalendarView");
    TrollCalendarView* cView = [[TrollCalendarView alloc] initWithFrame:groundRect];
+   self.view.backgroundColor = [UIColor lightGrayColor];
    cView.backgroundColor = [UIColor lightGrayColor];
    [cView addPlatforms];
    NSLog(@"Adding a TrollCalendarView");
@@ -34,6 +35,7 @@
    NSLog(@"Center of TrollCalendarView is: %@",NSStringFromCGPoint(cView.center));
    cView.center = self.view.center;
    [self.view addSubview:cView];
+   [cView displayTheDate];
 }
 
 - (void)didReceiveMemoryWarning

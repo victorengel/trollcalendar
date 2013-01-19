@@ -27,7 +27,12 @@
 @property (strong, nonatomic) NSDate *displayedDate; // This is the date currently being displayed. When the current
                                                      // date doesn't match this date, a refresh is done and this property
                                                      // is set to the new date.
+@property (nonatomic) CGPoint panStartLocation;
+
+//@property (strong, nonatomic) UIPanGestureRecognizer *panObject;
+
 -(void)addPlatforms;
+-(void)displayTheDate;
 
 @end
 CLLocationManager *locationManager;

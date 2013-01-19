@@ -32,6 +32,7 @@
    NSLog(@"### TrollCalendarView oneFingerDoubleTapped");
    //NSLog(@"DoubleTapped");
    displayedDate = [NSDate date];
+   [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
@@ -45,6 +46,7 @@
    NSLog(@"### TrollCalendarView rightSwipeHandle");
    //Now add code to go to the next date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:-24*60*60];
+   [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
@@ -52,6 +54,7 @@
    NSLog(@"### TrollCalendarView leftSwipeHandle");
    //Now add code to go to the previous date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:24*60*60];
+   [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
@@ -59,6 +62,7 @@
    NSLog(@"### TrollCalendarView upSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:73*24*60*60];
+   [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
@@ -66,11 +70,29 @@
    NSLog(@"### TrollCalendarView downSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:-73*24*60*60];
+   [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+}
+- (void)pinch:(UIPinchGestureRecognizer*)pinch{
+   NSLog(@"### TrollCalendarView pinch");
+   self.transform = CGAffineTransformMakeScale(pinch.scale, pinch.scale);
+}
+- (void)pan:(UIPanGestureRecognizer*)pan{
+   CGPoint originalPoint;
+   if (pan.state == UIGestureRecognizerStateBegan) {
+      originalPoint = CGPointMake(self.center.x, self.center.y);
+      self.panStartLocation = CGPointMake(originalPoint.x, originalPoint.y);
+   } else {
+      originalPoint = CGPointMake(self.panStartLocation.x, self.panStartLocation.y);
+   }
+   CGPoint translation = [pan translationInView:self.superview];
+   self.center = CGPointMake(originalPoint.x+translation.x, originalPoint.y+translation.y);
 }
 - (void)tomorrowTimerDidFire:(NSTimer *)timer {
    NSLog(@"### TrollCalendarView tomorrowTimerDidFire");
-   [self.subviews  makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   //[self.subviews  makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   self.displayedDate = [NSDate date];
+   [self displayTheDate];
 }
 - (void) layoutSubviews
 {
@@ -118,10 +140,26 @@
    [oneFingerSingleTap setNumberOfTouchesRequired:1];
    [oneFingerSingleTap requireGestureRecognizerToFail:oneFingerDoubleTap];
    [self addGestureRecognizer:oneFingerSingleTap];
+   
+   UIPinchGestureRecognizer *pinch;
+   pinch = [[UIPinchGestureRecognizer alloc]
+            initWithTarget:self
+            action:@selector(pinch:)];
+   [self addGestureRecognizer:pinch];
+   
+   UIPanGestureRecognizer *pan;
+   pan = [[UIPanGestureRecognizer alloc]
+          initWithTarget:self
+          action:@selector(pan:)];
+   //[pan requireGestureRecognizerToFail:recognizerDown];
+   pan.minimumNumberOfTouches = 3;
+   [self addGestureRecognizer:pan];
+   
    NSLog(@"Finished setting up gesture recognizers");
 }
 -(void)viewDidLoad
 {
+   [self displayTheDate];
    NSLog(@"### TrollCalendarView - viewDidLoad");
 }
 -(void)addPlatforms {
@@ -166,8 +204,12 @@
 {
    NSLog(@"### TrollCalendarView layoutSubviews");
    //Initialize displayedDate.
+   
+}
+-(void)setupTimer
+{
    //Set up timer to refresh upon date change.
-   NSCalendar *calendar = [NSCalendar currentCalendar];
+   /*NSCalendar *calendar = [NSCalendar currentCalendar];
    NSDateComponents *todayComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
    NSDate *today = [calendar dateFromComponents:todayComponents];
    // today is the start of today in the local time zone.  Note that `NSLog`
@@ -175,13 +217,15 @@
    // time zone is UTC.
    
    NSDateComponents *oneDay = [[NSDateComponents alloc] init];
-   oneDay.day = 1;
+   oneDay.day = 0;
+   oneDay.minute = 0;
+   oneDay.second = 10;
    NSDate *tomorrow = [calendar dateByAddingComponents:oneDay toDate:today options:0];
    NSTimer *timer = [[NSTimer alloc] initWithFireDate:tomorrow interval:0 target:self selector:@selector(tomorrowTimerDidFire:) userInfo:nil repeats:NO];
+   [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];*/
+   NSTimer *timer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:1.0 target:self selector:@selector(tomorrowTimerDidFire:) userInfo:nil repeats:YES];
    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-   
 }
-
 - (id)initWithFrame:(CGRect)frame
 {
    self = [super initWithFrame:frame];
@@ -198,6 +242,7 @@
       //NSLog(@"TrollCalendarView initWithFrame");
       //Set up gesture recognizers
       [self setupGestureRecognizers];
+      [self setupTimer];
    }
    return self;
 }
@@ -223,6 +268,31 @@
    
 }
 
+-(void)displayTheDate
+{
+   NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+   [dateFormat setDateFormat:@"yyyy-MM-dd"];
+   NSString *dateString = [dateFormat stringFromDate:self.displayedDate];
+   NSString *previousValue = @"";
+   for (UILabel *dateLabel in self.superview.subviews) {
+      if (dateLabel.tag == 2143) {
+         previousValue = dateLabel.text;
+         [dateLabel removeFromSuperview];
+      }
+   }
+   if (dateString != previousValue) {
+      // The date has changed. Redisplay the calendar
+      [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+   }
+   UILabel *dateLabel = [[UILabel alloc] init];
+   dateLabel.text = dateString;
+   dateLabel.tag = 2143;
+   dateLabel.backgroundColor = [UIColor lightGrayColor];
+   [dateLabel sizeToFit];
+   dateLabel.frame = CGRectMake(self.superview.bounds.size.width/2.0 - dateLabel.frame.size.width/2.0, 0.0, dateLabel.frame.size.width, dateLabel.frame.size.height);
+   [self.superview addSubview:dateLabel];
+   [self.superview bringSubviewToFront:dateLabel];
+}
 
 @end
 
