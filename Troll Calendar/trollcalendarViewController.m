@@ -25,19 +25,29 @@
    groundRect.origin.y -= 300;
    groundRect.size.width += 600;
    groundRect.size.height += 600;
-   NSLog(@"Initializing TrollCalendarView");
    TrollCalendarView* cView = [[TrollCalendarView alloc] initWithFrame:groundRect];
    self.view.backgroundColor = [UIColor lightGrayColor];
    cView.backgroundColor = [UIColor lightGrayColor];
+   //Add the troll
+   [self addTrollToView:cView];
    [cView addPlatforms];
-   NSLog(@"Adding a TrollCalendarView");
-   NSLog(@"TrollCalendarView frame is: %@",NSStringFromCGRect(cView.frame));
-   NSLog(@"Center of TrollCalendarView is: %@",NSStringFromCGPoint(cView.center));
    cView.center = self.view.center;
    [self.view addSubview:cView];
    [cView displayTheDate];
 }
 
+- (void)addTrollToView:(TrollCalendarView *)trollView
+{
+   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"thetroll"
+                                                        ofType:@"jpg"];
+   UIImage *trollImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+   UIImageView *trollImageView = [[UIImageView alloc] initWithImage:trollImage];
+   trollImageView.center = CGPointMake(685.0, 810.0);
+   trollImageView.tag = 84371;
+   trollImageView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+   trollImageView.transform = CGAffineTransformRotate(trollImageView.transform, M_PI);
+   [trollView addSubview:trollImageView];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

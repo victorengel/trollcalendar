@@ -22,10 +22,6 @@
 
 @property TrollCalendarView *parentView;
 
++(NSInteger)getSerialForDate: (NSDate *)date;
+
 @end
-/*Following is default code
- #import <UIKit/UIKit.h>
-
-@interface Tower : UIView
-
-@end*/

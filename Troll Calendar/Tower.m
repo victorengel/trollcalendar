@@ -25,33 +25,59 @@
 {
    self = [super initWithFrame:frame];
    if (self) {
-      //NSLog(@"Tower initWithFrame");
    }
    return self;
 }
 
++(NSInteger)getSerialForDate: (NSDate *)date
+{
+   //Return a serial day number from a date object.
+   double serial;
+   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+   formatter.dateFormat = @"dd MMM yyyy HH:mm ZZZ";
+   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
+   serial = floor((date.timeIntervalSince1970 - epoch.timeIntervalSince1970)/86400.0);
+   return serial;
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 
 {
-   //NSInteger whichTower, whichPlatform;
-   //NSDate *today = [NSDate date];
-   //NSLog(@"drawRect from Tower was just called.");
    NSDate *today;
    // Get date from TrollCalendarView.displayedDate.
    today = parentView.displayedDate;
    long towerNo, whichTower, whichPlatform;
-   float totalWidth, incWidth, originX, originY, squareX1, squareX2, squareY1, squareY2;
-   float serial = today.timeIntervalSince1970;
-   serial -= 3600*6; // adjust timezone
-   serial = serial / 86400 ;//convert from seconds to days
-   serial -= 1905; // now we have number of days since epoch
-                   //   serial += 9417; //Adjust for epoch = 1975-03-21.
-   serial = floor(serial);
+   double totalWidth, incWidth, originX, originY, squareX1, squareX2, squareY1, squareY2;
+   double serial = [Tower getSerialForDate:today];
    //now adjust leapdays
-   long fullCycles = floor(serial/12053);
+   if (serial<-10) {
+      NSLog(@"Serial is %f",serial);
+   }
+   long fullCycles = floor(serial/12053);             //Number of 33 year cycles. This moves the stones from one platform to the next.
+                                                      //A complete stone cycle is 7*33=231 years.
+   /* There are 8 stones which move from one platform to the next. The time it takes all 8 stones to move one platform over is 12053 days.
+      Every 1534 days one stone is moved. This occurs for 7 cycles. The eighth cycle lasts only 1315 days. So the times the stones are
+      moved follows this chart:
+    
+    Stone #     Move #
+    1           1534
+    2           3068
+    3           4602
+    4           6136
+    5           7670
+    6           9204
+    7          10738
+    8          12053
+    
+    Each move number is +/- 12053N, where N is the full cycle number (fullCycles).
+    */
+   //NSInteger platformForStone;
+   //for (int stoneNumber=1; stoneNumber<=8; stoneNumber++) {
+   //   platformForStone = [self whichPlatform:serial forStoneNumber:stoneNumber];
+   //   NSLog(@"Tower number for stone %d is %d for day %f",stoneNumber,platformForStone, serial);
+   //}
    long leapDays = 8*fullCycles;
    long partCycle = serial - 12053 * fullCycles;
    leapDays += floor(partCycle/1534);
@@ -72,12 +98,13 @@
    }
    //serial = 438;
    serial += (219*whichPlatform);
-   float twon = pow(2,9);
-   float term1 = twon-1;
-   float term2 = serial / term1;
+   double twon = pow(2,9);
+   double term1 = twon-1;
+   double term2 = serial / term1;
    serial = serial + floor(term2);
    // correct negative values later
-   if (serial < 0) serial += 219*7;
+   //if (serial < 0) serial += 219*7;
+   while (serial<0) serial += 219*7;
    //   serial = (serial+floor((serial/(2^9-1))));
    //const int N=9;
    // Drawing code
@@ -102,9 +129,9 @@
    for (NSInteger index=0;index<=8;index++) {
       long term3 = 9 + index + 2;
       long term4 = term3%2 + 1;
-      float term5 = pow(2,index);
-      float term6 = serial + term5;
-      float term7 = pow(2,(index+1));
+      double term5 = pow(2,index);
+      double term6 = serial + term5;
+      double term7 = pow(2,(index+1));
       long term8 = floor(term6 / term7);
       long term9 = term4 * term8;
       long correctStack = term9%3;
@@ -132,45 +159,3 @@
 
 @end
 
-/*
- FUNCTION HANOI2(M0,D,N)
- * The formula in this function is based on the formula on
- * Clifford's Tower of Hanoi Formula page. That formula, however,
- * is incomplete so has been modified here.
- *
- * http://www.clifford.at/hanoi/
- *
- * M0 = move number (0 at epoch)
- * D  = disk number (1 is topmost disk)
- * N  = number of disks (9 for troll yard art)
- * S  = stack number (0, 1, 2)
- 
- M = (M0+INT((M0/(2^N-1))))  ;* My mod to make it work for a complete cycle.
- S = MOD((MOD((N + D + 1),2) + 1)*INT((M + 2^(D-1))/(2^D)),3)
- RETURN S
- */
-
-/*default code
- #import "Tower.h"
-
-@implementation Tower
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-*/
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
-//@end

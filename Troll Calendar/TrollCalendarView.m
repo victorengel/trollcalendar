@@ -28,10 +28,38 @@
 
 @synthesize displayedDate;
 
+-(NSInteger)whichPlatform: (double)serial forStoneNumber: (NSInteger)stoneNumber
+{
+   // Replace below code with new code.
+   // First copy this code from displayTheDate
+   long fullCycles = floor(serial/84371.0);
+   double serialInFullCycle = serial - fullCycles*84371.0;
+   long smallCycles = floor(serialInFullCycle/12053.0);
+   double serialInSmallCycle = serialInFullCycle - smallCycles * 12053.0;
+   long cyc1534 = floor(serialInSmallCycle/1534.0);
+   double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;
+   //long semesters = floor(serialInCyc1534/73.0);
+   //long serialInSemester = floor(serialInCyc1534 - semesters*73.0);
+   //NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
+   long platformOfLeftStone = smallCycles;
+   long numberOfStonesOnRightPlatform = cyc1534+1;
+   long numberOfStonesOnLeftPlatform = 8 - numberOfStonesOnRightPlatform;
+   if (stoneNumber <= numberOfStonesOnLeftPlatform) {
+      return platformOfLeftStone;
+   } else {
+      return (platformOfLeftStone+1)%7;
+   }
+}
+
 - (void)oneFingerDoubleTapped:(UITapGestureRecognizer*)recognizer{
-   NSLog(@"### TrollCalendarView oneFingerDoubleTapped");
-   //NSLog(@"DoubleTapped");
    self.displayedDate = [NSDate date];
+   //Set to epoch instead.
+   //
+   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+   formatter.dateFormat = @"dd MMM yyyy HH:mm ZZZ";
+   
+   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
+   self.displayedDate = epoch;
    self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
@@ -39,7 +67,6 @@
 
 - (void)oneFingerSingleTapped:(UITapGestureRecognizer*)recognizer{
    //Add descriptive text.
-   NSLog(@"### TrollCalendarView oneFingerSingleTapped");
    //Check if the text is already displayed. If so, remove it. Otherwise display it.
    BOOL helpTextAlreadyDisplayed = NO;
    UILabel *existingLabel;
@@ -58,14 +85,11 @@
       NSString* filePath = [[NSBundle mainBundle] pathForResource:@"helpText"
                                                            ofType:@""];
       NSString *helpText = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSASCIIStringEncoding error:nil];
-      NSLog(@"The text is %@##############",helpText);
       UILabel * helpTextView = [[UILabel alloc]init];
       helpTextView.numberOfLines = 0;
       helpTextView.text = helpText;
       [helpTextView sizeToFit];
       helpTextView.tag = 3333;
-      //helpTextView.textAlignment = NSTextAlignmentJustified;
-      //helpTextView.center = self.superview.center;
       UIView *textDecoration = [[UIView alloc]init];
       textDecoration.frame =
       CGRectMake(0.0,
@@ -77,8 +101,6 @@
       [textDecoration addSubview:helpTextView];
       textDecoration.tag = 3333;
       textDecoration.center = self.superview.center;
-      //Change the scale if needed.
-      NSLog(@"bounds of self.superview are %@",NSStringFromCGRect(self.superview.bounds));
       float maxHeight = self.superview.bounds.size.height * 0.75;
       float maxWidth = self.superview.bounds.size.width * 0.75;
       maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.75;
@@ -100,7 +122,6 @@
 }
 
 - (void)rightSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
-   NSLog(@"### TrollCalendarView rightSwipeHandle");
    //Now add code to go to the next date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:-24.0*60.0*60.0];
    [self displayTheDate];
@@ -109,7 +130,6 @@
 }
 
 - (void)leftSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
-   NSLog(@"### TrollCalendarView leftSwipeHandle");
    //Now add code to go to the previous date and refresh.
    displayedDate = [displayedDate dateByAddingTimeInterval:24.0*60.0*60.0];
    [self displayTheDate];
@@ -118,7 +138,6 @@
 }
 
 - (void)upSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
-   NSLog(@"### TrollCalendarView upSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:-73.0*24.0*60.0*60.0];
    [self displayTheDate];
@@ -127,7 +146,6 @@
 }
 
 - (void)downSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
-   NSLog(@"### TrollCalendarView downSwipeHandle");
    //Now add code to jump 73 days.
    displayedDate = [displayedDate dateByAddingTimeInterval:73.0*24.0*60.0*60.0];
    [self displayTheDate];
@@ -135,8 +153,14 @@
    self.gesturePerformed = [NSDate date];
 }
 - (void)pinch:(UIPinchGestureRecognizer*)pinch{
-   NSLog(@"### TrollCalendarView pinch");
-   self.transform = CGAffineTransformMakeScale(pinch.scale, pinch.scale);
+   CGAffineTransform pinchStart;
+   if (pinch.state == UIGestureRecognizerStateBegan) {
+      pinchStart = self.transform;
+      self.pinchStart = pinchStart;
+   } else {
+      pinchStart = self.pinchStart;
+   }
+   self.transform = CGAffineTransformScale(pinchStart, pinch.scale, pinch.scale);
    self.gesturePerformed = [NSDate date];
 }
 - (void)pan:(UIPanGestureRecognizer*)pan{
@@ -152,15 +176,11 @@
    self.gesturePerformed = [NSDate date];
 }
 - (void)tomorrowTimerDidFire:(NSTimer *)timer {
-   NSLog(@"### TrollCalendarView tomorrowTimerDidFire");
-   //[self.subviews  makeObjectsPerformSelector:@selector(setNeedsDisplay)];
    //Skip this method of there was a gesture in the last minute.
    NSDate *lastGesturePerformed = self.gesturePerformed;
    NSDate *rightNow = [NSDate date];
    float timeElapsed = [lastGesturePerformed timeIntervalSinceNow];
-   NSLog(@"Time elapsed: %f",timeElapsed);
    if ((timeElapsed < -60.0)||!lastGesturePerformed) {
-      NSLog(@"Ding");
       self.displayedDate = rightNow;
       [self displayTheDate];
    }
@@ -170,10 +190,6 @@
 }
 -(void)setupGestureRecognizers
 {
-   NSLog(@"Add gesture recognizers");
-   // Try adding touch recognizer here.
-   //UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]
-   //                                   initWithTarget:self action:@selector()];
    UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightSwipeHandle:)];
    [recognizerRight setNumberOfTouchesRequired:1];
    [self addGestureRecognizer:recognizerRight];
@@ -222,24 +238,17 @@
    pan = [[UIPanGestureRecognizer alloc]
           initWithTarget:self
           action:@selector(pan:)];
-   //[pan requireGestureRecognizerToFail:recognizerDown];
-   pan.minimumNumberOfTouches = 3;
+   pan.minimumNumberOfTouches = 2;
    [self addGestureRecognizer:pan];
-   
-   NSLog(@"Finished setting up gesture recognizers");
 }
 -(void)viewDidLoad
 {
    [self displayTheDate];
-   NSLog(@"### TrollCalendarView - viewDidLoad");
 }
 -(void)addPlatforms {
-   NSLog(@"### TrollCalendarView - addPlatforms");
    displayedDate = [NSDate date];
    self.NumPlatforms = 7;
-   NSLog(@"Set up the platforms. Number of platforms: %d",self.NumPlatforms);
    for (NSInteger index=0;index < self.NumPlatforms;index++){
-      NSLog(@"Working on platform %d of %d",index,self.NumPlatforms);
       PlatformView* pView = [[PlatformView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds)-750./2, CGRectGetMidY(self.bounds)-750./2, 750., 750.)];
       pView.backgroundColor = [UIColor clearColor];
       [self addSubview:pView];
@@ -268,32 +277,20 @@
             }
          }
       }
+      //The towers have been added. Now add the stones, if any.
+      double serial = [Tower getSerialForDate:displayedDate];
+      NSInteger platformForStone;
+      for (int stoneNumber=1; stoneNumber<=8; stoneNumber++) {
+         platformForStone = [self whichPlatform:serial forStoneNumber:stoneNumber];
+         if (platformForStone == index) {
+            //Add this stone to this platform.
+            [pView addStone:stoneNumber];
+         }
+      }
    }
-}
-
--(void)wasInLayoutSubviews
-{
-   NSLog(@"### TrollCalendarView layoutSubviews");
-   //Initialize displayedDate.
-   
 }
 -(void)setupTimer
 {
-   //Set up timer to refresh upon date change.
-   /*NSCalendar *calendar = [NSCalendar currentCalendar];
-   NSDateComponents *todayComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
-   NSDate *today = [calendar dateFromComponents:todayComponents];
-   // today is the start of today in the local time zone.  Note that `NSLog`
-   // will print it in UTC, so it will only print as midnight if your local
-   // time zone is UTC.
-   
-   NSDateComponents *oneDay = [[NSDateComponents alloc] init];
-   oneDay.day = 0;
-   oneDay.minute = 0;
-   oneDay.second = 10;
-   NSDate *tomorrow = [calendar dateByAddingComponents:oneDay toDate:today options:0];
-   NSTimer *timer = [[NSTimer alloc] initWithFireDate:tomorrow interval:0 target:self selector:@selector(tomorrowTimerDidFire:) userInfo:nil repeats:NO];
-   [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];*/
    NSTimer *timer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:1.0 target:self selector:@selector(tomorrowTimerDidFire:) userInfo:nil repeats:YES];
    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
@@ -302,15 +299,12 @@
    self = [super initWithFrame:frame];
    if (self) {
       // Initialization code
-      NSLog(@"### TrollCalendarView initWithFrame -- set up location manager");
       locationManager=[[CLLocationManager alloc] init];
       locationManager.desiredAccuracy = kCLLocationAccuracyBest;
       locationManager.delegate=self;
-      NSLog(@"Location manager delegate set to TrollCalendarView");
       //Start the compass updates.
       [locationManager startUpdatingLocation];
       [locationManager startUpdatingHeading];
-      //NSLog(@"TrollCalendarView initWithFrame");
       //Set up gesture recognizers
       [self setupGestureRecognizers];
       [self setupTimer];
@@ -318,20 +312,9 @@
    return self;
 }
 
-//1:00:00 Uncomment out this section to add code to the drawRect method.
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-/*Remove this code when views work. Enable it to see the extent of the view.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- NSLog(@"drawRect from TrollCalendarView");
- }*/
-
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-   //NSLog(@"### TrollCalendarView - locationManager:didUpdateHeading: %@",newHeading);
    float radianheading = (180-newHeading.trueHeading) * M_PI / 180;
    //Now rotate the appropriate view(s).
    CGAffineTransform transformTrollCalendar = CGAffineTransformMakeRotation(radianheading);
@@ -351,10 +334,44 @@
          [dateLabel removeFromSuperview];
       }
    }
-   dateString = [dateString stringByAppendingString:@" E:+1 W:-1 N:+73 S:-73"];
+   double serial = [Tower getSerialForDate:self.displayedDate];
+   long fullCycles = floor(serial/84371.0);
+   double serialInFullCycle = serial - fullCycles*84371.0;
+   long smallCycles = floor(serialInFullCycle/12053.0);
+   double serialInSmallCycle = serialInFullCycle - smallCycles * 12053.0;
+   long cyc1534 = floor(serialInSmallCycle/1534.0);
+   double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;
+   long semesters = floor(serialInCyc1534/73.0);
+   long serialInSemester = floor(serialInCyc1534 - semesters*73.0);
+   long whichTower = smallCycles;
+   if (cyc1534 == 7) {
+      whichTower += 1;
+   }
+   whichTower = whichTower % 7;
+   [self orientTheTrollBy:semesters+serialInSemester whichTower:whichTower];
+   //1534*7+1315
+   NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
+   dateString = [dateString stringByAppendingString:@" E:+1 W:-1 N:+73 S:-73 "];
+   dateString = [dateString stringByAppendingString:cycles];
    if (dateString != previousValue) {
       // The date has changed. Redisplay the calendar
       [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+      //[self.subviews makeObjectsPerformSelector:@selector(removeStones)];
+      for (PlatformView *platform in self.subviews) {
+         if (platform.tag >=0 && platform.tag <= 7) {
+            [platform removeStones];
+         }
+      }
+      //Now add stones back to appropriate platforms
+      double serial = [Tower getSerialForDate:self.displayedDate];
+      for (int stoneNumber=1; stoneNumber<=8; stoneNumber++) {
+         int whichPlatform = [self whichPlatform:serial forStoneNumber:stoneNumber];
+         for (PlatformView *platformView in self.subviews) {
+            if (platformView.tag == whichPlatform) {
+               [platformView addStone:stoneNumber];
+            }
+         }
+      }
    }
    UILabel *dateLabel = [[UILabel alloc] init];
    dateLabel.text = dateString;
@@ -365,30 +382,19 @@
    [self.superview addSubview:dateLabel];
    [self.superview bringSubviewToFront:dateLabel];
 }
-
+-(void)orientTheTrollBy: (NSInteger)trollOrientation whichTower: (NSInteger)towerToFace
+{
+   //NSLog(@"Orient the troll by %d",trollOrientation);
+   float angleToRotate;
+   if (trollOrientation == 0) angleToRotate = 0; else angleToRotate = M_PI;
+   angleToRotate += towerToFace * M_PI * 2.0 / 7.0;
+   for (UIImageView *trollImageView in self.subviews) {
+      if (trollImageView.tag == 84371) {
+         //CGAffineTransform oldTransform = trollImageView.transform;
+         trollImageView.transform = CGAffineTransformMakeRotation(angleToRotate);
+         trollImageView.transform = CGAffineTransformScale(trollImageView.transform, 0.1, 0.1);
+      }
+   }
+}
 @end
 
-/*default code
-#import "TrollCalendarView.h"
-
-@implementation TrollCalendarView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
-//@end

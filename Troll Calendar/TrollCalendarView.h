@@ -28,6 +28,7 @@
                                                      // date doesn't match this date, a refresh is done and this property
                                                      // is set to the new date.
 @property (nonatomic) CGPoint panStartLocation;
+@property (nonatomic) CGAffineTransform pinchStart;
 @property (strong, nonatomic) NSDate *gesturePerformed; //Date/time a gesture was performed. Timer will not effect any changes if there has been a gesture within the last minute.
 
 //@property (strong, nonatomic) UIPanGestureRecognizer *panObject;
