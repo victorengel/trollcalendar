@@ -39,12 +39,12 @@
 - (void)addTrollToView:(TrollCalendarView *)trollView
 {
    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"thetroll"
-                                                        ofType:@"jpg"];
+                                                        ofType:@"gif"];
    UIImage *trollImage = [[UIImage alloc] initWithContentsOfFile:filePath];
    UIImageView *trollImageView = [[UIImageView alloc] initWithImage:trollImage];
    trollImageView.center = CGPointMake(685.0, 810.0);
    trollImageView.tag = 84371;
-   trollImageView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+   trollImageView.transform = CGAffineTransformMakeScale(0.5, 0.5);
    trollImageView.transform = CGAffineTransformRotate(trollImageView.transform, M_PI);
    [trollView addSubview:trollImageView];
 }

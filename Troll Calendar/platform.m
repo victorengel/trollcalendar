@@ -157,12 +157,17 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
    }
    if (!imageAlreadyOnPlatform) {
       NSString* filePath = [[NSBundle mainBundle] pathForResource:@"stone"
-                                                           ofType:@"jpg"];
+                                                           ofType:@"gif"];
       UIImage *stoneImage = [[UIImage alloc]initWithContentsOfFile:filePath];
       UIImageView *stoneImageView = [[UIImageView alloc]initWithImage:stoneImage];
       stoneImageView.tag = imageTag;
       [stoneImageView sizeToFit];
-      stoneImageView.transform = CGAffineTransformMakeScale(0.02, 0.02);
+      if (stoneNumber == 8) {
+         stoneImageView.transform = CGAffineTransformMakeScale(0.03, 0.02);
+      } else {
+         stoneImageView.transform = CGAffineTransformMakeScale(0.03, 0.03);
+      }
+      stoneImageView.transform = CGAffineTransformRotate(stoneImageView.transform, M_PI/2.0);
 /*Actual coordinates of angled lines at inside of each platform.
  (396.694183,420.048431) to (422.727203,474.106567)
  (353.305817,420.048431) to (327.272797,474.106567)
@@ -176,12 +181,12 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
       //Stones numbered 5..8 have y position of 474
       //Stones x position is 354 + (stoneNumber mod 4) * 10
       int xIndex = stoneNumber;
-      float yPos = 430.0;
+      float yPos = 425.0;
       if (stoneNumber>4) {
          xIndex = stoneNumber - 4;
-         yPos = 444.0;
+         yPos = 439.0;
       }
-      float xPos = 349.0 + xIndex*10.0;
+      float xPos = 350.0 + xIndex*10.0;
       stoneImageView.center = CGPointMake(xPos, yPos);
       [self addSubview:stoneImageView];
    }

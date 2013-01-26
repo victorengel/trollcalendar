@@ -51,6 +51,8 @@
    long towerNo, whichTower, whichPlatform;
    double totalWidth, incWidth, originX, originY, squareX1, squareX2, squareY1, squareY2;
    double serial = [Tower getSerialForDate:today];
+   long circles = floor(serial/84371.0);
+   serial -= (circles*84371.0);
    //now adjust leapdays
    if (serial<-10) {
       NSLog(@"Serial is %f",serial);
@@ -92,7 +94,7 @@
    //   S = MOD((MOD((N + D + 1),2) + 1)*INT((M + 2^(D-1))/(2^D)),3)
    
    whichTower = (self.tag - 100)%3;
-   whichPlatform = (self.tag - 100)/3;
+   whichPlatform = floor((self.tag - 100)/3.0);
    if (whichPlatform == 0) {
       //NSLog(@"%ld platform",whichPlatform);
    }

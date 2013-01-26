@@ -37,7 +37,7 @@
    long smallCycles = floor(serialInFullCycle/12053.0);
    double serialInSmallCycle = serialInFullCycle - smallCycles * 12053.0;
    long cyc1534 = floor(serialInSmallCycle/1534.0);
-   double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;
+   //double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;
    //long semesters = floor(serialInCyc1534/73.0);
    //long serialInSemester = floor(serialInCyc1534 - semesters*73.0);
    //NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
@@ -392,7 +392,7 @@
       if (trollImageView.tag == 84371) {
          //CGAffineTransform oldTransform = trollImageView.transform;
          trollImageView.transform = CGAffineTransformMakeRotation(angleToRotate);
-         trollImageView.transform = CGAffineTransformScale(trollImageView.transform, 0.1, 0.1);
+         trollImageView.transform = CGAffineTransformScale(trollImageView.transform, 0.5, 0.5);
       }
    }
 }
