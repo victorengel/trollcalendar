@@ -30,7 +30,10 @@
 		A706CB0816AA0C51002DDF0A /* platform.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0716AA0C51002DDF0A /* platform.m */; };
 		A782701116AA53C500DA96D4 /* helpText in Resources */ = {isa = PBXBuildFile; fileRef = A782701016AA53C500DA96D4 /* helpText */; };
 		A782701316AC8B0C00DA96D4 /* stone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A782701216AC8B0C00DA96D4 /* stone.jpg */; };
-		A7F45A4316B0842700C78705 /* thetroll.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7F45A4216B0842700C78705 /* thetroll.jpg */; };
+		A7F45A4316B0842700C78705 /* thetrollold.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7F45A4216B0842700C78705 /* thetrollold.jpg */; };
+		A7F45A4616B31DD200C78705 /* thetroll.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7F45A4516B31DD200C78705 /* thetroll.jpg */; };
+		A7F45A4816B3206D00C78705 /* thetroll.gif in Resources */ = {isa = PBXBuildFile; fileRef = A7F45A4716B3206C00C78705 /* thetroll.gif */; };
+		A7F45A4A16B3218900C78705 /* stone.gif in Resources */ = {isa = PBXBuildFile; fileRef = A7F45A4916B3218900C78705 /* stone.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +68,10 @@
 		A706CB0716AA0C51002DDF0A /* platform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform.m; sourceTree = "<group>"; };
 		A782701016AA53C500DA96D4 /* helpText */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpText; sourceTree = "<group>"; };
 		A782701216AC8B0C00DA96D4 /* stone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = stone.jpg; sourceTree = "<group>"; };
-		A7F45A4216B0842700C78705 /* thetroll.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thetroll.jpg; sourceTree = "<group>"; };
+		A7F45A4216B0842700C78705 /* thetrollold.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thetrollold.jpg; sourceTree = "<group>"; };
+		A7F45A4516B31DD200C78705 /* thetroll.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thetroll.jpg; sourceTree = "<group>"; };
+		A7F45A4716B3206C00C78705 /* thetroll.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = thetroll.gif; sourceTree = "<group>"; };
+		A7F45A4916B3218900C78705 /* stone.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = stone.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +136,10 @@
 				A706CB0616AA0C51002DDF0A /* platform.h */,
 				A706CB0716AA0C51002DDF0A /* platform.m */,
 				A782701216AC8B0C00DA96D4 /* stone.jpg */,
-				A7F45A4216B0842700C78705 /* thetroll.jpg */,
+				A7F45A4916B3218900C78705 /* stone.gif */,
+				A7F45A4216B0842700C78705 /* thetrollold.jpg */,
+				A7F45A4516B31DD200C78705 /* thetroll.jpg */,
+				A7F45A4716B3206C00C78705 /* thetroll.gif */,
 				A706CAD516AA0AC8002DDF0A /* Supporting Files */,
 			);
 			path = "Troll Calendar";
@@ -218,7 +227,10 @@
 				A706CAFF16AA0BA3002DDF0A /* Icon144.png in Resources */,
 				A782701116AA53C500DA96D4 /* helpText in Resources */,
 				A782701316AC8B0C00DA96D4 /* stone.jpg in Resources */,
-				A7F45A4316B0842700C78705 /* thetroll.jpg in Resources */,
+				A7F45A4316B0842700C78705 /* thetrollold.jpg in Resources */,
+				A7F45A4616B31DD200C78705 /* thetroll.jpg in Resources */,
+				A7F45A4816B3206D00C78705 /* thetroll.gif in Resources */,
+				A7F45A4A16B3218900C78705 /* stone.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
