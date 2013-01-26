@@ -128,7 +128,8 @@
    incWidth = totalWidth / 20;
    originX = boundingRectangle.origin.x;
    originY = boundingRectangle.origin.y;
-   for (NSInteger index=0;index<=8;index++) {
+   for (NSInteger index=8;index>=0;index--) {
+      //      for (NSInteger index=0;index<=8;index++) {
       long term3 = 9 + index + 2;
       long term4 = term3%2 + 1;
       double term5 = pow(2,index);
@@ -138,21 +139,36 @@
       long term9 = term4 * term8;
       long correctStack = term9%3;
       if (correctStack == whichTower ) {
-         
+         UIColor *tileColor;
          float indexValue = index;
+         float red, green, blue, alpha;
          if (indexValue/2 - floor(indexValue/2) < 0.25) {
-            [[UIColor blackColor] setStroke];
+            tileColor = [UIColor blackColor];
+            red=0.3;green=0.2;blue=0.1;
+            red=0.666;green=.494;blue=0.333;
          } else {
-            [[UIColor brownColor] setStroke];
+            tileColor = [UIColor brownColor];
+            red=0.8;green=0.7;blue=0.6;
+            //            [[UIColor brownColor] setStroke];
          }
+         alpha=1.0;
+         [tileColor setStroke];
          towerNo = 9-index;
          squareX1 = originX + incWidth*towerNo +incWidth/100;
          squareX2 = originX + totalWidth - incWidth*towerNo-incWidth/100;
          squareY1 = originY + incWidth*towerNo +incWidth/100;
          squareY2 = originY + totalWidth - incWidth*towerNo-incWidth/100;
          CGRect tile = CGRectMake(squareX1, squareY1, (squareX2-squareX1), (squareY2-squareY1));
+         /*
+          CGContextSetRGBFillColor (myContext, 1, 0, 0, 1);// 3
+          CGContextFillRect (myContext, CGRectMake (0, 0, 200, 100 ));
+          */
          CGContextAddRect(contextTowerView, tile);
+         //CGContextSetFillColorWithColor(contextTowerView, (__bridge CGColorRef)(tileColor));
          CGContextStrokePath(contextTowerView);
+         //CGContextFillRect(contextTowerView, tile);
+         CGContextSetRGBFillColor(contextTowerView, red, green, blue, alpha);
+         CGContextFillRect(contextTowerView, tile);
       }
    }
    // Update the date property.
