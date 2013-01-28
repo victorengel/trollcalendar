@@ -249,7 +249,19 @@
    displayedDate = [NSDate date];
    self.NumPlatforms = 7;
    for (NSInteger index=0;index < self.NumPlatforms;index++){
+      //for (NSInteger index=0;index < 1;index++){
       PlatformView* pView = [[PlatformView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds)-750./2, CGRectGetMidY(self.bounds)-750./2, 750., 750.)];
+      //Add platform image to pView
+      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Platform"
+                                                           ofType:@"png"];
+      UIImage *platformImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+      UIImageView *platformImageView = [[UIImageView alloc] initWithImage:platformImage];
+      platformImageView.center = CGPointMake(375.0,577.0);//+ = west,north for platform 0
+      platformImageView.tag = 880+index;
+      platformImageView.transform = CGAffineTransformMakeScale(0.344, 0.344);
+      platformImageView.transform = CGAffineTransformRotate(platformImageView.transform, M_PI);
+      [pView addSubview:platformImageView];
+      //
       pView.backgroundColor = [UIColor clearColor];
       [self addSubview:pView];
       pView.tag = index;
@@ -269,7 +281,8 @@
             float topleftX = centerX - towerWidth/2;
             float topleftY = centerY - towerWidth/2 +115.;
             Tower* tower = [[Tower alloc] initWithFrame:CGRectMake(topleftX, topleftY, towerWidth, towerHeight)];
-            tower.backgroundColor = [UIColor lightGrayColor];
+            //tower.backgroundColor = [UIColor lightGrayColor];
+            tower.backgroundColor = [UIColor clearColor];
             if (index<7) {
                [pView addSubview:tower]; //Move it to proper location in platform.m
                tower.parentView = self;

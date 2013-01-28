@@ -29,17 +29,29 @@
    self.view.backgroundColor = [UIColor lightGrayColor];
    cView.backgroundColor = [UIColor lightGrayColor];
    //Add the troll
+   [self addHeptagonToView:cView];
    [self addTrollToView:cView];
    [cView addPlatforms];
    cView.center = self.view.center;
    [self.view addSubview:cView];
    [cView displayTheDate];
 }
-
+-(void)addHeptagonToView:(TrollCalendarView *)trollView
+{
+   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Heptagon"
+                                                        ofType:@"png"];
+   UIImage *heptagonImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+   UIImageView *heptagonImageView = [[UIImageView alloc] initWithImage:heptagonImage];
+   heptagonImageView.center = CGPointMake(684.0, 809.5);//+ = north, west
+   heptagonImageView.tag = 84372;                       
+   heptagonImageView.transform = CGAffineTransformMakeScale(0.21, 0.21);
+   //heptagonImageView.transform = CGAffineTransformRotate(heptagonImageView.transform, M_PI);
+   [trollView addSubview:heptagonImageView];
+}
 - (void)addTrollToView:(TrollCalendarView *)trollView
 {
    NSString* filePath = [[NSBundle mainBundle] pathForResource:@"thetroll"
-                                                        ofType:@"gif"];
+                                                        ofType:@"png"];
    UIImage *trollImage = [[UIImage alloc] initWithContentsOfFile:filePath];
    UIImageView *trollImageView = [[UIImageView alloc] initWithImage:trollImage];
    trollImageView.center = CGPointMake(685.0, 810.0);
