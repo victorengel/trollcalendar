@@ -358,6 +358,7 @@
    long serialInSemester = floor(serialInCyc1534 - semesters*73.0);
    long whichTower = smallCycles;
    if (cyc1534 == 7) {
+      semesters += 3;
       whichTower += 1;
    }
    whichTower = whichTower % 7;
