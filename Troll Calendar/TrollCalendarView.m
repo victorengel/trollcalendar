@@ -50,7 +50,6 @@
       return (platformOfLeftStone+1)%7;
    }
 }
-
 - (void)oneFingerDoubleTapped:(UITapGestureRecognizer*)recognizer{
    self.displayedDate = [NSDate date];
    //Set to epoch instead.
@@ -60,6 +59,21 @@
    
    NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
    self.displayedDate = epoch;
+   self.gesturePerformed = [NSDate date];
+   [self displayTheDate];
+   [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+}
+
+- (void)oneFingerTripleTapped:(UITapGestureRecognizer*)recognizer{
+   self.displayedDate = [NSDate dateWithTimeInterval:12053*86400.0 sinceDate:self.displayedDate];
+   self.gesturePerformed = [NSDate date];
+   [self displayTheDate];
+   [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+}
+
+
+- (void)oneFingerTripleTappedBack:(UITapGestureRecognizer*)recognizer{
+   self.displayedDate = [NSDate dateWithTimeInterval:-12053*86400.0 sinceDate:self.displayedDate];
    self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
@@ -211,12 +225,29 @@
    [recognizerDown setNumberOfTouchesRequired:1];
    [self addGestureRecognizer:recognizerDown];
    
+   UITapGestureRecognizer *oneFingerTripleTap;
+   oneFingerTripleTap = [[UITapGestureRecognizer alloc]
+                         initWithTarget:self
+                         action:@selector(oneFingerTripleTapped:)];
+   [oneFingerTripleTap setNumberOfTapsRequired:3];
+   [oneFingerTripleTap setNumberOfTouchesRequired:1];
+   [self addGestureRecognizer:oneFingerTripleTap];
+   
+   UITapGestureRecognizer *oneFingerTripleTapBack;
+   oneFingerTripleTapBack = [[UITapGestureRecognizer alloc]
+                         initWithTarget:self
+                         action:@selector(oneFingerTripleTappedBack:)];
+   [oneFingerTripleTapBack setNumberOfTapsRequired:3];
+   [oneFingerTripleTapBack setNumberOfTouchesRequired:2];
+   [self addGestureRecognizer:oneFingerTripleTapBack];
+   
    UITapGestureRecognizer *oneFingerDoubleTap;
    oneFingerDoubleTap = [[UITapGestureRecognizer alloc]
                          initWithTarget:self
                          action:@selector(oneFingerDoubleTapped:)];
    [oneFingerDoubleTap setNumberOfTapsRequired:2];
    [oneFingerDoubleTap setNumberOfTouchesRequired:1];
+   [oneFingerDoubleTap requireGestureRecognizerToFail:oneFingerTripleTap];
    [self addGestureRecognizer:oneFingerDoubleTap];
    
    UITapGestureRecognizer *oneFingerSingleTap;
