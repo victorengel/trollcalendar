@@ -156,8 +156,9 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
       if (stoneImageView.tag == imageTag) imageAlreadyOnPlatform = YES;
    }
    if (!imageAlreadyOnPlatform) {
-      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"stone"
-                                                           ofType:@"gif"];
+      NSString *stoneFileName = [NSString stringWithFormat:@"stone%d",stoneNumber];
+      NSString* filePath = [[NSBundle mainBundle] pathForResource:stoneFileName
+                                                           ofType:@"png"];
       UIImage *stoneImage = [[UIImage alloc]initWithContentsOfFile:filePath];
       UIImageView *stoneImageView = [[UIImageView alloc]initWithImage:stoneImage];
       stoneImageView.tag = imageTag;
@@ -181,7 +182,7 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
       //Stones numbered 5..8 have y position of 474
       //Stones x position is 354 + (stoneNumber mod 4) * 10
       int xIndex = stoneNumber;
-      float yPos = 425.0;
+      float yPos = 426.0;
       if (stoneNumber>4) {
          xIndex = stoneNumber - 4;
          yPos = 439.0;
