@@ -38,7 +38,7 @@
 }
 -(void)addCircleto:(UIImageView *)heptagon atPoint:(CGPoint)p color:(NSString *)color tag:(NSUInteger)tag
 {
-   NSLog(@"addCircleto:heptagon atPoint %f,%f",p.x,p.y);
+   //NSLog(@"addCircleto:heptagon atPoint %f,%f",p.x,p.y);
    //NSString* filePath = [[NSBundle mainBundle] pathForResource:@"circle"
    //                                                     ofType:@"png"];
    //UIImage *circleImage = [[UIImage alloc] initWithContentsOfFile:filePath];
@@ -65,7 +65,7 @@
     moves   solar    lunar (24 long, 23 short)
     */
    // First let's do the 30-position ring
-   NSLog(@"addLunarRingsToHeptagon");
+   //NSLog(@"addLunarRingsToHeptagon");
    float radius = 197.0;
    CGFloat x,y;
    NSString *color;
