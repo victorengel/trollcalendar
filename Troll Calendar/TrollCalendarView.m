@@ -378,21 +378,46 @@
          [dateLabel removeFromSuperview];
       }
    }
-   double serial = [Tower getSerialForDate:self.displayedDate];
-   long fullCycles = floor(serial/84371.0);
-   double serialInFullCycle = serial - fullCycles*84371.0;
-   long smallCycles = floor(serialInFullCycle/12053.0);
-   double serialInSmallCycle = serialInFullCycle - smallCycles * 12053.0;
-   long cyc1534 = floor(serialInSmallCycle/1534.0);
-   double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;
-   long semesters = floor(serialInCyc1534/73.0);
-   long serialInSemester = floor(serialInCyc1534 - semesters*73.0);
+   double serial = [Tower getSerialForDate:self.displayedDate];             //13849 -1
+   long fullCycles = floor(serial/84371.0);                                 //0     -1
+   double serialInFullCycle = serial - fullCycles*84371.0;                  //13849 84370
+   long smallCycles = floor(serialInFullCycle/12053.0);                     //1     6
+   long tsemesters = smallCycles * 165;                                     //165   990
+   tsemesters += 1155 * fullCycles;
+   double serialInSmallCycle = serialInFullCycle - smallCycles * 12053.0;   //1796  12052
+   long cyc1534 = floor(serialInSmallCycle/1534.0);                         //1     7
+   tsemesters+= cyc1534 * 21;                                               //186   1137
+   // Since last cycle is only 18 instead of 21 semesters, subtract 3 if cyc1534 is 7
+   //if (cyc1534 == 7) tsemesters -= 3;                                       //      1134
+   double serialInCyc1534 = serialInSmallCycle - cyc1534*1534;              //262   1314
+   long semesters = floor(serialInCyc1534/73.0);                            //3     18
+   tsemesters+= semesters;                                                  //189   1155
+   long serialInSemester = floor(serialInCyc1534 - semesters*73.0);         //43    0
+   long moves = tsemesters * 73 + serialInSemester;                         //13840 84315
+//moves += 4; //Moon is 4 days old at epoch.                                       84319
+   long metonicCycles = floor(moves/1387.0);                                //9     60
+   long moveInMetonicCycle = moves - 1387.0*metonicCycles;                  //1361  1099
+   long moonPairs = floor(moveInMetonicCycle/59.0);                         //23    18
+   long moveInMoonPair = moveInMetonicCycle - 59.0*moonPairs;               //0     37
+   int moonPosition = floor(moveInMoonPair);
+   int whichMoonCycle = 30;
+   if (moonPosition >30) {
+      moonPosition -= 30;
+      whichMoonCycle = 29;
+   }
+   [self setMoonCirclesUsingIndicator:fullCycles-7 moonPosition:moonPosition whichRing:whichMoonCycle];
    long whichTower = smallCycles;
    if (cyc1534 == 7) {
       semesters += 3;
       whichTower += 1;
    }
    whichTower = whichTower % 7;
+   // Lunar calculations follow.
+   // There are exactly 47 lunations for every 19 semesters, 1387 moves. So it's useful to know
+   // how many semesters there are in each of the above cycles. The cycle aligns ever fullCycle,
+   // so fullCycle can be used for the new moon indicator: indicator = fullCycles - 8;
+   // smallCycles = 165 semesters
+   // 165 / 19 = 8 R 13
    [self orientTheTrollBy:semesters+serialInSemester whichTower:whichTower];
    //1534*7+1315
    NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
@@ -427,6 +452,30 @@
    [self.superview addSubview:dateLabel];
    [self.superview bringSubviewToFront:dateLabel];
 }
+-(void)setMoonCirclesUsingIndicator:(long)indicator moonPosition:(int)moonPosition whichRing:(int)whichMoonCycle
+{
+   //Set the moon position at location indicator to grey.
+   //Set the moon position on ring whichMoonCycle,moonPosition to red.
+   int indicatorTag = 30+floor(indicator);
+   // Find the circleview with tag indicatorTag and change the image to circleGrey.png
+   int currentMoonTag = moonPosition;
+   if (whichMoonCycle == 29) currentMoonTag += 30;
+   if (indicatorTag == 0) indicatorTag = 30;
+   if (currentMoonTag == 0) currentMoonTag = 30;
+   // Find the circleview with tag currentMoonTag and change the image to circleRed.png
+   NSString * fileSuffix;
+   for (UIView *heptagon in self.subviews) {
+      if (heptagon.tag == 84372) {
+         for (UIImageView *circle in heptagon.subviews) {
+            fileSuffix = @"";
+            if (indicatorTag == circle.tag) fileSuffix = @"Black";
+            if (currentMoonTag == circle.tag) fileSuffix = @"Red";
+            circle.image = [UIImage imageNamed:[NSString stringWithFormat:@"circle%@.png",fileSuffix]];
+         }
+      }
+   }
+}
+
 -(void)orientTheTrollBy: (NSInteger)trollOrientation whichTower: (NSInteger)towerToFace
 {
    //NSLog(@"Orient the troll by %d",trollOrientation);
@@ -437,7 +486,7 @@
       if (trollImageView.tag == 84371) {
          //CGAffineTransform oldTransform = trollImageView.transform;
          trollImageView.transform = CGAffineTransformMakeRotation(angleToRotate);
-         trollImageView.transform = CGAffineTransformScale(trollImageView.transform, 0.5, 0.5);
+         trollImageView.transform = CGAffineTransformScale(trollImageView.transform, 0.4, 0.4);
       }
    }
 }
