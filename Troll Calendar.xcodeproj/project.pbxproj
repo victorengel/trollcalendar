@@ -39,7 +39,11 @@
 		A7081E8716B74A21003C174C /* stone7.png in Resources */ = {isa = PBXBuildFile; fileRef = A7081E7A16B74A20003C174C /* stone7.png */; };
 		A7081E8A16B74A21003C174C /* stone6.png in Resources */ = {isa = PBXBuildFile; fileRef = A7081E7D16B74A21003C174C /* stone6.png */; };
 		A7081E8F16B74DB4003C174C /* Platform.png in Resources */ = {isa = PBXBuildFile; fileRef = A7081E8E16B74DB3003C174C /* Platform.png */; };
+		A7468E6316D2DCE6009FD7BA /* circleBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = A7468E6216D2DCE6009FD7BA /* circleBlack.png */; };
 		A782701116AA53C500DA96D4 /* helpText in Resources */ = {isa = PBXBuildFile; fileRef = A782701016AA53C500DA96D4 /* helpText */; };
+		A7FF543316D16F4B00D6E82E /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543216D16F4B00D6E82E /* circle.png */; };
+		A7FF543616D17C8B00D6E82E /* circleGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543416D17C8B00D6E82E /* circleGrey.png */; };
+		A7FF543716D17C8B00D6E82E /* circleRed.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543516D17C8B00D6E82E /* circleRed.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +87,11 @@
 		A7081E7A16B74A20003C174C /* stone7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone7.png; sourceTree = "<group>"; };
 		A7081E7D16B74A21003C174C /* stone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stone6.png; sourceTree = "<group>"; };
 		A7081E8E16B74DB3003C174C /* Platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Platform.png; sourceTree = "<group>"; };
+		A7468E6216D2DCE6009FD7BA /* circleBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleBlack.png; sourceTree = "<group>"; };
 		A782701016AA53C500DA96D4 /* helpText */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpText; sourceTree = "<group>"; };
+		A7FF543216D16F4B00D6E82E /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
+		A7FF543416D17C8B00D6E82E /* circleGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleGrey.png; sourceTree = "<group>"; };
+		A7FF543516D17C8B00D6E82E /* circleRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleRed.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,10 @@
 				A7081E7916B74A20003C174C /* stone5.png */,
 				A7081E7A16B74A20003C174C /* stone7.png */,
 				A7081E7D16B74A21003C174C /* stone6.png */,
+				A7FF543216D16F4B00D6E82E /* circle.png */,
+				A7FF543416D17C8B00D6E82E /* circleGrey.png */,
+				A7FF543516D17C8B00D6E82E /* circleRed.png */,
+				A7468E6216D2DCE6009FD7BA /* circleBlack.png */,
 				A706CAD516AA0AC8002DDF0A /* Supporting Files */,
 			);
 			path = "Troll Calendar";
@@ -255,6 +267,10 @@
 				A7081E8716B74A21003C174C /* stone7.png in Resources */,
 				A7081E8A16B74A21003C174C /* stone6.png in Resources */,
 				A7081E8F16B74DB4003C174C /* Platform.png in Resources */,
+				A7FF543316D16F4B00D6E82E /* circle.png in Resources */,
+				A7FF543616D17C8B00D6E82E /* circleGrey.png in Resources */,
+				A7FF543716D17C8B00D6E82E /* circleRed.png in Resources */,
+				A7468E6316D2DCE6009FD7BA /* circleBlack.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
