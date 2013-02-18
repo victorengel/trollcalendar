@@ -405,7 +405,7 @@
       moonPosition -= 30;
       whichMoonCycle = 29;
    }
-   [self setMoonCirclesUsingIndicator:fullCycles-7 moonPosition:moonPosition whichRing:whichMoonCycle];
+   [self setMoonCirclesUsingIndicator:fullCycles-8 moonPosition:moonPosition whichRing:whichMoonCycle];
    long whichTower = smallCycles;
    if (cyc1534 == 7) {
       semesters += 3;
