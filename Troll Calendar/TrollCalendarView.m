@@ -405,7 +405,7 @@
       moonPosition -= 30;
       whichMoonCycle = 29;
    }
-   [self setMoonCirclesUsingIndicator:fullCycles-8 moonPosition:moonPosition whichRing:whichMoonCycle];
+   [self setMoonCirclesUsingIndicator:fullCycles-9 moonPosition:moonPosition whichRing:whichMoonCycle];
    long whichTower = smallCycles;
    if (cyc1534 == 7) {
       semesters += 3;
@@ -415,7 +415,7 @@
    // Lunar calculations follow.
    // There are exactly 47 lunations for every 19 semesters, 1387 moves. So it's useful to know
    // how many semesters there are in each of the above cycles. The cycle aligns ever fullCycle,
-   // so fullCycle can be used for the new moon indicator: indicator = fullCycles - 8;
+   // so fullCycle can be used for the new moon indicator: indicator = fullCycles - 9;
    // smallCycles = 165 semesters
    // 165 / 19 = 8 R 13
    [self orientTheTrollBy:semesters+serialInSemester whichTower:whichTower];
