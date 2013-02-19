@@ -74,7 +74,7 @@
       x = sinf(angle) * radius;
       y = cosf(angle) * radius;
       color = @"";
-      [self addCircleto:heptagon atPoint:CGPointMake(230.0+x, 234.0+y) color:color tag:30-i];
+      [self addCircleto:heptagon atPoint:CGPointMake(231.0+x, 238.0+y) color:color tag:30-i];
    }
    radius = 162.0;
    // Next let's do the 29-position ring
@@ -82,12 +82,12 @@
       CGFloat angle = 2.0 * M_PI * i / 29.0;
       x = sinf(angle) * radius;
       y = cosf(angle) * radius;
-      [self addCircleto:heptagon atPoint:CGPointMake(230.0+x, 234.0+y) color:color tag:59-i];
+      [self addCircleto:heptagon atPoint:CGPointMake(231.0+x, 238.0+y) color:color tag:59-i];
    }
    radius = 365.0/2.0;
    x = 0.0;
    y = radius;
-   [self addCircleto:heptagon atPoint:CGPointMake(230.0+x, 234.0+y) color:color tag:30];
+   [self addCircleto:heptagon atPoint:CGPointMake(231.0+x, 238.0+y) color:color tag:30];
 }
 -(void)addHeptagonToView:(TrollCalendarView *)trollView
 {
