@@ -1,32 +1,75 @@
-A troll sits in the center of a set of seven platforms.
-Each platform contains nine tiles, each with a specific size.
-At midnight each night, the troll moves one tile on each
-platform, following the rules for the Towers of Hanoi puzzle.
+Quick Help to Gestures:
 
-Five times a year, the tiles arrange in a single stack. One
-of these times of year is the spring equinox, when the sun's
-shadow aligns with the edge of the tile away from the equator.
+Swipe EAST to advance one day
+Swipe WEST to go back one day
+Swipe NORTH to advance 73 days
+Swipe SOUTH to go back 73 days
 
-The app starts out displaying the configuration for the date
-the app was started. The user may use certain gestures to see
-what will happen on other dates. Following is a list of all
-the gestures recognized by the app.
+A troll sits in the center of a set of seven platforms. Each platform contains nine tiles, each with a specific size. At midnight each night, the troll moves one tile on each platform, following the rules for the Towers of Hanoi puzzle.*
 
-Single tap displays this help screen.
+Five times a year, the tiles on one of the platforms arein a single stack, thanks to the action of the troll. One of these times of year is the spring equinox, when the sun's shadow aligns with the edge of the tile away from the equator (the device does not work at extreme latitudes and was originally designed for operation in Austin, Texas).
 
-Double tap resets the configuration to today's date.
+The app starts out displaying the configuration for the date/time the app was started. The user may use certain gestures to see what will happen on other dates. Following is a list of all the gestures recognized by the app.
 
-Swipe toward the east advances one day.
-
-Swipe toward the west goes backward one day.
-
-Swipe toward the north advances 73 days.
-
-Swipe toward the south goes backward 73 days.
+Single tap displays this help screen. To cancel, tap again outside of the boundaries of the text frame.
 
 Pinch allows the user to zoom in or out.
 
-Pan allows the user to move the display (not needed on iPad).
+Pan allows the user to move the display.
+
+The following gestures adjust the date and set the time to noon, local time. The configuration automatically returns to the current date/time if the user has not made any gestures for 60 seconds.
+
+Double tap sets the configuration to the epoch, which is the northward solstice for Gregorian year 1975.
+
+Triple tap to advance the date by one 33 year period. The tiles are exactly the same each 33 year period, but one platform clockwise compared to the previous 33 year period. A 33 year period is exactly 12053 days, which is not a multiple of 7, so the day of the week changes when jumping by 33 years.
+
+Swipe toward the east to advance one day. Note that the display rotates according to the magnetic compass. Usually swipe gestures are orthogonal to the device, but in this app, they are orthogonal to the cardinal directions. To determine where the cardinal directions are, compare the edges of the tiles to the edges of the platform they are sitting on. If they are parallel and perpendicular, the platform is the north platform.
+
+Swipe toward the west to go backward one day.
+
+Swipe toward the north to advance 73 days. Note that every 73 MOVES one of the puzzles is solved, i.e., all the tiles on one platform are in a single stack. However, these 73 moves could contain a rest day, in which case the time between solved puzzles is 74 days rather than the usual 73 days. Using the northward/southward swipes is thus a way to find when the leap days occur.
+
+Swipe toward the south to go backward 73 days.
 
 After one minute of no gestures, the app reverts to the current
 date. The configuration will automatically change at midnight.
+
+At the top of the screen is a display in the following format:
+
+YYYY-MM-DD HH:MM:SS a.b.c.d.e
+
+The fields are described here:
+
+YYYY is the year in the Gregorian calendar.
+MM is the month number in the Gregorian calendar.
+DD is the day number in the Gregorian calendar.
+HH is the hour (a 24 hour clock is used).
+MM is the minute.
+SS is the second.
+
+a.b.c.d.e can be thought of another way to express the date shown with the Towers of Hanoi puzzles.
+a = circle number - each circle (84371 days) consists of 7 platforms.
+b = platform number - each platform (12053 days = 12045 moves) consists of 8 stones. Seven of the stones are long stones, one is a short stone. There is a rest day for each stone where a day elapses with no move. This is a leap day.
+c = stone number - each stone consists of either 1533 or 1314 moves, plus a rest day. There is no move on a rest day. Instead, the troll faces in the opposite direction from the direction he normally faces.
+d = quint number - a quint is so called because it is 1/5 year. There are 73 moves in a quint.
+e = move number within the quint.
+
+So far, the manipulation of the device to calculate solar dates has been described. The device also contains features to predict the phase of the moon. Near the center, surrounding the troll, is a pair of rings of circles. They share a circle at the north end. The outer ring consists of 30 circles. The inner ring consists of 29 circles.
+
+One of the circles is colored black. This mark indicates the new moon.
+
+Another of the circles is colored red. This mark indicates the current phase of the moon. Unlike the tiles, that are manipulated only on move days (not on rest days), the red marker is moved every day. Each day it is moved one position clockwise. It alternates between the outer ring and the inner ring with one exception. If the marker is at the intersection (the northernmost circle) and there is a solved puzzle on some platform, the red marker proceeds to the outer ring. The result of this is a cycle of 47 lunations starting and ending with 30 day lunations being equated to 19 quints. This is a troll's version of the Metonic cycle. The troll's Metonic cycle is corrected once a circle by moving the black marker one position clockwise every circle.
+
+To calculate the phase of the moon, simply compare the relative positions of the red and black markers. If they are on opposite sides of the troll, it is full moon. If they are at 90 degrees to each other, using the troll's position as the vertex of the angle, it is a quarter moon.
+
+One final feature is a day of week marker. Since there are seven platforms, a red dot is used to indicate the day of the week. If the red dot is on the north platform, the indicated date is a Sunday. Monday is the platform clockwise to the right, and so on through the rest of the week.
+
+Calculating Easter: using the above lunar information, it is possible to calculate Easter with a very good accuracy. Here are the steps:
+
+1. Find a day in March where all the tiles are on a single stack on some platform. This is the northward equinox.
+2. Go forward one day at a time using the swiping eastward gesture until the red marker is opposite the black marker. This is the Paschal full moon.
+3. Go forward at least one more day and keep advancing until the red day of week marker is on the north platform. The configured date shown is most likely Easter.
+
+*Rules of the Towers of Hanoi puzzle:
+
+The Towers of Hanoi puzzle consist of three towers containing 0 to n disks, or, in the case of the troll calendar, tiles. At time zero, all disks/tiles are on a single tower. The goal is to move all the disks/tiles to another tower. Only one disk/tile can be moved at a time, and it is forbidden to place a larger piece on top of a smaller piece.

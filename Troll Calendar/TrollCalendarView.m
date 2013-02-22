@@ -91,55 +91,27 @@
 - (void)oneFingerSingleTapped:(UITapGestureRecognizer*)recognizer{
    //Add descriptive text.
    //Check if the text is already displayed. If so, remove it. Otherwise display it.
+   //Change to use UITextView instead.
    BOOL helpTextAlreadyDisplayed = NO;
-   UILabel *existingLabel;
-   for (UIView *existingDecoration in self.superview.subviews) {
-      if (existingDecoration.tag == 3333) {
-         for (existingLabel in self.superview.subviews) {
-            if (existingLabel.tag == 3333) {
-               [existingLabel removeFromSuperview];
+   for (UITextView *helpText in self.superview.subviews) {
+      if (helpText.tag == 3333) {
                helpTextAlreadyDisplayed = YES;
-            }
-         }
-         [existingDecoration removeFromSuperview];
+         [helpText removeFromSuperview];
       }
    }
    if (!helpTextAlreadyDisplayed) {
+      float maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.75;
+      float maxWidth = [[UIScreen mainScreen] bounds].size.width * 0.75;
+      float x = ([[UIScreen mainScreen] bounds].size.width - maxWidth)/2;
+      float y = ([[UIScreen mainScreen] bounds].size.height - maxHeight)/2;
+      CGRect helpTextFrame = CGRectMake(x, y, maxWidth, maxHeight);
       NSString* filePath = [[NSBundle mainBundle] pathForResource:@"helpText"
                                                            ofType:@""];
-      NSString *helpText = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSASCIIStringEncoding error:nil];
-      UILabel * helpTextView = [[UILabel alloc]init];
-      helpTextView.numberOfLines = 0;
-      helpTextView.text = helpText;
-      [helpTextView sizeToFit];
-      helpTextView.tag = 3333;
-      UIView *textDecoration = [[UIView alloc]init];
-      textDecoration.frame =
-      CGRectMake(0.0,
-                 0.0,
-                 helpTextView.frame.size.width*1.2,
-                 helpTextView.frame.size.height*1.2);
-      textDecoration.backgroundColor = helpTextView.backgroundColor;
-      helpTextView.center = textDecoration.center;
-      [textDecoration addSubview:helpTextView];
-      textDecoration.tag = 3333;
-      textDecoration.center = self.superview.center;
-      float maxHeight = self.superview.bounds.size.height * 0.75;
-      float maxWidth = self.superview.bounds.size.width * 0.75;
-      maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.75;
-      maxWidth = [[UIScreen mainScreen] bounds].size.width * 0.75;
-      float actHeight = textDecoration.frame.size.height;
-      float actWidth = textDecoration.frame.size.width;
-      float scale = 1.0;
-      if (actHeight > maxHeight) {
-         scale = maxHeight/actHeight;
-      }
-      if (scale*actWidth > maxWidth) {
-         scale = maxWidth/actWidth;
-      }
-      textDecoration.transform = CGAffineTransformMakeScale(scale, scale);
-      [self.superview addSubview:textDecoration];
-      [self.superview bringSubviewToFront:textDecoration];
+      UITextView *helpText = [[UITextView alloc] initWithFrame:helpTextFrame];
+      helpText.text = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSASCIIStringEncoding error:nil];
+      helpText.tag = 3333;
+      [helpText setEditable:NO];
+      [self.superview addSubview:helpText];
    }
    self.gesturePerformed = [NSDate date];
 }
@@ -383,6 +355,7 @@
 -(void)displayTheDate
 {
    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+   //[dateFormat setDateFormat:@"yyyy-MM-dd"];
    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
    NSString *dateString = [dateFormat stringFromDate:self.displayedDate];
    NSString *previousValue = @"";
@@ -436,8 +409,8 @@
    [self orientTheTrollBy:semesters+serialInSemester whichTower:whichTower];
    //1534*7+1315
    NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
-   dateString = [dateString stringByAppendingString:@" E:+1 W:-1 N:+73 S:-73 "];
-   dateString = [dateString stringByAppendingString:cycles];
+   //dateString = [dateString stringByAppendingString:@"E:+1 W:-1 N:+73 S:-73 "];
+   dateString = [dateString stringByAppendingFormat:@" %@",cycles];
    if (dateString != previousValue) {
       // The date has changed. Redisplay the calendar
       [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
