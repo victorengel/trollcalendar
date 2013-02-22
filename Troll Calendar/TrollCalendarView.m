@@ -50,6 +50,14 @@
       return (platformOfLeftStone+1)%7;
    }
 }
+- (NSDate *)setNoon: (NSDate *)date
+{
+   NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+   NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+   [components setHour:12];
+   NSDate *todayNoon = [calendar dateFromComponents:components];
+   return todayNoon;
+}
 - (void)oneFingerDoubleTapped:(UITapGestureRecognizer*)recognizer{
    self.displayedDate = [NSDate date];
    //Set to epoch instead.
@@ -57,15 +65,16 @@
    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
    formatter.dateFormat = @"dd MMM yyyy HH:mm ZZZ";
    
-   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
-   self.displayedDate = epoch;
+   //   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
+   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 06:00 +0000"];
+   self.displayedDate = [self setNoon:epoch];
    self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
 
 - (void)oneFingerTripleTapped:(UITapGestureRecognizer*)recognizer{
-   self.displayedDate = [NSDate dateWithTimeInterval:12053*86400.0 sinceDate:self.displayedDate];
+   self.displayedDate = [self setNoon:[NSDate dateWithTimeInterval:12053*86400.0 sinceDate:self.displayedDate]];
    self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
@@ -73,7 +82,7 @@
 
 
 - (void)oneFingerTripleTappedBack:(UITapGestureRecognizer*)recognizer{
-   self.displayedDate = [NSDate dateWithTimeInterval:-12053*86400.0 sinceDate:self.displayedDate];
+   self.displayedDate = [self setNoon:[NSDate dateWithTimeInterval:-12053*86400.0 sinceDate:self.displayedDate]];
    self.gesturePerformed = [NSDate date];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
@@ -137,7 +146,9 @@
 
 - (void)rightSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    //Now add code to go to the next date and refresh.
-   displayedDate = [displayedDate dateByAddingTimeInterval:-24.0*60.0*60.0];
+   displayedDate = [self setNoon:[displayedDate dateByAddingTimeInterval:-24.0*60.0*60.0]];
+   //below: Temporarily add 20 additional minutes in order to test what happens around midnight both GMT and local
+   //displayedDate = [displayedDate dateByAddingTimeInterval:-(24.0*60.0*60.0 + 20.0*60.0)];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
    self.gesturePerformed = [NSDate date];
@@ -145,7 +156,7 @@
 
 - (void)leftSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    //Now add code to go to the previous date and refresh.
-   displayedDate = [displayedDate dateByAddingTimeInterval:24.0*60.0*60.0];
+   displayedDate = [self setNoon:[displayedDate dateByAddingTimeInterval:24.0*60.0*60.0]];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
    self.gesturePerformed = [NSDate date];
@@ -153,7 +164,7 @@
 
 - (void)upSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    //Now add code to jump 73 days.
-   displayedDate = [displayedDate dateByAddingTimeInterval:-73.0*24.0*60.0*60.0];
+   displayedDate = [self setNoon:[displayedDate dateByAddingTimeInterval:-73.0*24.0*60.0*60.0]];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
    self.gesturePerformed = [NSDate date];
@@ -161,7 +172,7 @@
 
 - (void)downSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
    //Now add code to jump 73 days.
-   displayedDate = [displayedDate dateByAddingTimeInterval:73.0*24.0*60.0*60.0];
+   displayedDate = [self setNoon:[displayedDate dateByAddingTimeInterval:73.0*24.0*60.0*60.0]];
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
    self.gesturePerformed = [NSDate date];
@@ -331,6 +342,9 @@
             [pView addStone:stoneNumber];
          }
       }
+      //if (index==1) {
+      //   [pView addWeekdayMarker];
+      //}
    }
 }
 -(void)setupTimer
@@ -369,7 +383,7 @@
 -(void)displayTheDate
 {
    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-   [dateFormat setDateFormat:@"yyyy-MM-dd"];
+   [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
    NSString *dateString = [dateFormat stringFromDate:self.displayedDate];
    NSString *previousValue = @"";
    for (UILabel *dateLabel in self.superview.subviews) {
@@ -381,6 +395,7 @@
    double serial = [Tower getSerialForDate:self.displayedDate];             //13849 -1
    long fullCycles = floor(serial/84371.0);                                 //0     -1
    double serialInFullCycle = serial - fullCycles*84371.0;                  //13849 84370
+   int dayOfWeek = fmod(floor(serialInFullCycle+5) , 7);
    long smallCycles = floor(serialInFullCycle/12053.0);                     //1     6
    long tsemesters = smallCycles * 165;                                     //165   990
    tsemesters += 1155 * fullCycles;
@@ -430,6 +445,13 @@
       for (PlatformView *platform in self.subviews) {
          if (platform.tag >=0 && platform.tag <= 7) {
             [platform removeStones];
+            if (platform.tag == dayOfWeek) {
+               [platform addWeekdayMarker];
+               //unhide dow indicator
+            } else {
+               //hide dow indicator
+               [platform removeWeekdayMarker];
+            }
          }
       }
       //Now add stones back to appropriate platforms

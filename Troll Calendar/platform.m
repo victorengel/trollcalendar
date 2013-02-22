@@ -146,6 +146,23 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
       }
    }
 }
+-(void)addWeekdayMarker
+{
+   UIImage *weekdayMarker = [UIImage imageNamed:@"circleRed.png"];
+   UIImageView *weekdayMarkerView = [[UIImageView alloc] initWithImage:weekdayMarker];
+   weekdayMarkerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+   weekdayMarkerView.center = CGPointMake(375.0, 728.0);
+   weekdayMarkerView.tag = 777;
+   [self addSubview:weekdayMarkerView];
+}
+-(void)removeWeekdayMarker
+{
+   for (UIImageView *weekdayMarkerView in self.subviews) {
+      if (weekdayMarkerView.tag == 777) {
+         [weekdayMarkerView removeFromSuperview];
+      }
+   }
+}
 -(void)addStone: (NSInteger)stoneNumber
 {
    // Add stone number stoneNumber to the current platform.

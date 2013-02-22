@@ -35,8 +35,10 @@
    double serial;
    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
    formatter.dateFormat = @"dd MMM yyyy HH:mm ZZZ";
-   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
+   //NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 05:57 +0000"];
+   NSDate *epoch = [formatter dateFromString:@"21 Mar 1975 06:00 +0000"];
    serial = floor((date.timeIntervalSince1970 - epoch.timeIntervalSince1970)/86400.0);
+   //NSLog(@"Serial for date %@ is %f",date,serial);
    return serial;
 }
 

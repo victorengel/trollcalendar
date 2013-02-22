@@ -14,5 +14,7 @@
 
 -(void)addStone: (NSInteger)stoneNumber;
 -(void)removeStones;
+-(void)addWeekdayMarker;
+-(void)removeWeekdayMarker;
 
 @end
