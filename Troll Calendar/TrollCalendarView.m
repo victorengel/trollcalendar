@@ -87,21 +87,63 @@
    [self displayTheDate];
    [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
 }
+-(void)addDoneButtonTo: (UITextView *)helpText
+{
+   //UIButton *doneButton = [[UIButton alloc] init];
+   UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+   [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+   [doneButton sizeToFit];
+   //UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Title" message:@"Message" delegate:self cancelButtonTitle:@"Done" otherButtonTitles: nil];
+   doneButton.center = CGPointMake(helpText.bounds.size.width - doneButton.bounds.size.width/2 - 15,
+                                   doneButton.bounds.size.height/2 + 15);
+   //Now add a tap gesture recognizer to the doneButton.
+   UITapGestureRecognizer *oneFingerSingleTap;
+   oneFingerSingleTap = [[UITapGestureRecognizer alloc]
+                         initWithTarget:self
+                         action:@selector(oneFingerSingleTapped:)];
+   [oneFingerSingleTap setNumberOfTapsRequired:1];
+   [oneFingerSingleTap setNumberOfTouchesRequired:1];
+   [doneButton addGestureRecognizer:oneFingerSingleTap];
 
+   [helpText addSubview:doneButton];
+}
+- (UITextView *)getTextView
+{
+   for (UITextView *helpText in self.superview.subviews) {
+      if (helpText.tag == 3333) {
+         return helpText;
+         break;
+      }
+   }
+   return nil;
+}
 - (void)oneFingerSingleTapped:(UITapGestureRecognizer*)recognizer{
    //Add descriptive text.
    //Check if the text is already displayed. If so, remove it. Otherwise display it.
    //Change to use UITextView instead.
    BOOL helpTextAlreadyDisplayed = NO;
-   for (UITextView *helpText in self.superview.subviews) {
-      if (helpText.tag == 3333) {
-               helpTextAlreadyDisplayed = YES;
-         [helpText removeFromSuperview];
-      }
+   //for (UITextView *helpText in self.superview.subviews) {
+   //if (helpText.tag == 3333) {
+   UITextView *helpText = [self getTextView];
+   if (helpText) {
+      helpTextAlreadyDisplayed = YES;
+      [helpText removeFromSuperview];
+      //NSLog(@"Gesture performed %@",self.gesturePerformed);
+      self.gesturePerformed = [NSDate dateWithTimeIntervalSinceNow:-60.0];//to allow seconds display to continue.
+      //NSLog(@"Gesture performed %@",self.gesturePerformed);
    }
    if (!helpTextAlreadyDisplayed) {
-      float maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.75;
-      float maxWidth = [[UIScreen mainScreen] bounds].size.width * 0.75;
+      float maxWidth, maxHeight;
+      if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+      {
+         maxHeight = [[UIScreen mainScreen] bounds].size.height * 0.85;
+         maxWidth = [[UIScreen mainScreen] bounds].size.width * 0.85;
+      }
+      else
+      {
+         maxHeight = [[UIScreen mainScreen] bounds].size.height;
+         maxWidth = [[UIScreen mainScreen] bounds].size.width;
+      }
       float x = ([[UIScreen mainScreen] bounds].size.width - maxWidth)/2;
       float y = ([[UIScreen mainScreen] bounds].size.height - maxHeight)/2;
       CGRect helpTextFrame = CGRectMake(x, y, maxWidth, maxHeight);
@@ -110,10 +152,13 @@
       UITextView *helpText = [[UITextView alloc] initWithFrame:helpTextFrame];
       helpText.text = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSASCIIStringEncoding error:nil];
       helpText.tag = 3333;
+      if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) [helpText setFont:[UIFont systemFontOfSize:18]];
       [helpText setEditable:NO];
+      //Add Done button to helpText view
+      [self addDoneButtonTo:helpText];
       [self.superview addSubview:helpText];
    }
-   self.gesturePerformed = [NSDate date];
+   //self.gesturePerformed = [NSDate date];
 }
 
 - (void)rightSwipeHandle:(UISwipeGestureRecognizer*)gestureRecognizer{
@@ -174,12 +219,17 @@
 }
 - (void)tomorrowTimerDidFire:(NSTimer *)timer {
    //Skip this method of there was a gesture in the last minute.
-   NSDate *lastGesturePerformed = self.gesturePerformed;
-   NSDate *rightNow = [NSDate date];
-   float timeElapsed = [lastGesturePerformed timeIntervalSinceNow];
-   if ((timeElapsed < -60.0)||!lastGesturePerformed) {
-      self.displayedDate = rightNow;
-      [self displayTheDate];
+   UITextView *helpText = [self getTextView];
+   if (!helpText) {
+      NSDate *lastGesturePerformed = self.gesturePerformed;
+      NSDate *rightNow = [NSDate date];
+      //NSLog(@"Right now is %@",rightNow);
+      //NSLog(@"lastGesturePerformed is %@",lastGesturePerformed);
+      float timeElapsed = [lastGesturePerformed timeIntervalSinceNow];
+      if ((timeElapsed < -60.0)||!lastGesturePerformed) {
+         self.displayedDate = rightNow;
+         [self displayTheDate];
+      }
    }
 }
 - (void) layoutSubviews
@@ -410,7 +460,7 @@
    //1534*7+1315
    NSString *cycles = [NSString stringWithFormat:@"%ld.%ld.%ld.%ld.%ld",fullCycles,smallCycles,cyc1534,semesters,serialInSemester];
    //dateString = [dateString stringByAppendingString:@"E:+1 W:-1 N:+73 S:-73 "];
-   dateString = [dateString stringByAppendingFormat:@" %@",cycles];
+   dateString = [dateString stringByAppendingFormat:@" ✦ %@",cycles];
    if (dateString != previousValue) {
       // The date has changed. Redisplay the calendar
       [self.subviews makeObjectsPerformSelector:@selector(setNeedsDisplay)];
