@@ -181,9 +181,9 @@ static CGFloat radiansForDegrees(CGFloat degrees) {
       stoneImageView.tag = imageTag;
       [stoneImageView sizeToFit];
       if (stoneNumber == 8) {
-         stoneImageView.transform = CGAffineTransformMakeScale(0.03, 0.02);
+         stoneImageView.transform = CGAffineTransformMakeScale(0.12, 0.08);
       } else {
-         stoneImageView.transform = CGAffineTransformMakeScale(0.03, 0.03);
+         stoneImageView.transform = CGAffineTransformMakeScale(0.12, 0.12);
       }
       stoneImageView.transform = CGAffineTransformRotate(stoneImageView.transform, M_PI/2.0);
 /*Actual coordinates of angled lines at inside of each platform.

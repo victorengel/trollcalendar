@@ -7,7 +7,7 @@ Swipe SOUTH to go back 73 days
 
 A troll sits in the center of a set of seven platforms. Each platform contains nine tiles, each with a specific size. At midnight each night, the troll moves one tile on each platform, following the rules for the Towers of Hanoi puzzle.*
 
-Five times a year, the tiles on one of the platforms are in a single stack, thanks to the action of the troll. One of these times of year is the spring equinox, when the sun's shadow aligns with the edge of the tile away from the equator (the shadow feature of the device does not work at extreme latitudes).
+Five times a year, a puzzle is solved on one of the seven platforms. At this time, all tiles on that platform are in a single stack. One of five times is the spring equinox, when the sun's shadow aligns with the edge of the tile away from the equator (the shadow feature of the device does not work at extreme latitudes).
 
 The app starts out displaying the configuration for the date/time the app was started. The user may use certain gestures to see what will happen on other dates. Following is a list of all the gestures recognized by the app.
 
@@ -17,13 +17,13 @@ Pinch allows the user to zoom in or out.
 
 Pan allows the user to move the display.
 
-The following gestures adjust the date and set the time to noon, local time. The configuration automatically returns to the current date/time if the user has not made any gestures for 60 seconds.
+The following gestures adjust the date and set the time to noon, local time. 
 
-Double tap to set the configuration to the epoch, which is the northward solstice for Gregorian year 1975.
+Double tap to set the configuration to the epoch, which is the northward equinox for Gregorian year 1975.
 
 Triple tap to advance the date by one 33 year period. The tiles are exactly the same each 33 year period, but one platform clockwise compared to the previous 33 year period. A 33 year period is exactly 12053 days, which is not a multiple of 7, so the day of the week changes when jumping by 33 years.
 
-Swipe toward the east to advance one day. Note that the display rotates according to the magnetic compass. Usually swipe gestures are orthogonal to the device, but in this app, they are orthogonal to the cardinal directions. To determine where the cardinal directions are, compare the edges of the tiles to the edges of the platform they are sitting on. If they are parallel and perpendicular, the platform is the north platform.
+Swipe toward the east to advance one day. Note that the display rotates according to the magnetic compass. Usually swipe gestures are orthogonal to the device, but in this app, they are orthogonal to the cardinal directions because the main view rotates as the device is rotated. To determine where the cardinal directions are using the app, compare the edges of the tiles to the edges of the platform they are sitting on. If they are parallel and perpendicular, the platform is the north platform.
 
 Swipe toward the west to go backward one day.
 
@@ -32,7 +32,7 @@ Swipe toward the north to advance 73 days. Note that every 73 MOVES one of the p
 Swipe toward the south to go backward 73 days.
 
 After one minute of no gestures, the app reverts to the current
-date. The configuration will automatically change at midnight.
+date. The configuration automatically changes at midnight.
 
 At the top of the screen is a display in the following format:
 
@@ -58,7 +58,7 @@ So far, the manipulation of the device to calculate solar dates has been describ
 
 One of the circles is colored black. This mark indicates the new moon.
 
-Another of the circles is colored red. This mark indicates the current phase of the moon. Unlike the tiles that are manipulated only on move days (not on rest days), the red marker is moved every day. Each day it is moved one position clockwise. It alternates between the outer ring and the inner ring with one exception. If the marker is at the intersection (the northernmost circle) and there is a solved puzzle on some platform, the red marker proceeds to the outer ring. The result of this is a cycle of 47 lunations starting and ending with 30 day lunations being equated to 19 quints. This is a troll's version of the Metonic cycle. The troll's Metonic cycle is corrected once every circle by moving the black marker one position clockwise.
+Another of the circles is colored red. This mark indicates the current phase of the moon. Each non-rest day it is moved one position clockwise. It alternates between the outer ring and the inner ring with one exception. If the marker is at the intersection (the northernmost circle) and there is a solved puzzle on some platform, the red marker proceeds to the outer ring. The result of this is a cycle of 47 lunations starting and ending with 30 day lunations being equated to 19 quints. This is a troll's version of the Metonic cycle. The troll's Metonic cycle is corrected once every circle by moving the black marker one position clockwise.
 
 To calculate the phase of the moon, simply compare the relative positions of the red and black markers. If they are on opposite sides of the troll, it is full moon. If they are at 90 degrees to each other, using the troll's position as the vertex of the angle, it is a quarter moon.
 
@@ -81,3 +81,35 @@ Dark colored tiles are always moved toward the center. If the result of this ope
 Light colored tiles are always moved away from the center. If the result of this operation takes it off the platform, it is placed on the near position.
 
 The troll always moves the largest tile that can be moved following these rules.
+
+CALCULATIONS:
+Here is a summary of the math involved in this app.
+
+* It takes exactly 511 moves to solve a Towers of Hanoi puzzle with 9 tiles optimally. This moves all the tiles one position on the platform.
+* 511 moves * 3 = 1533 moves = one puzzle cycle. Every 1533 moves, the tiles are in exactly the same configuration. This can be verified by swiping north or south 21 times (21 * 73 = 1533) and possibly one swipe east or west to compensate for a leap day.
+* The fact that 511 is divisible by 7 is the source of the 7 platforms.
+* 511 moves/7 = 73 moves, one quint
+* 73 moves * 5 = 365 moves, one year
+* 219 (three quints) is the number of moves each platform is out of phase relative to the platform next to it. Since there are 7 platforms, one full cycle of offsets is 219 * 7 = 1533 moves = 3 puzzles or one puzzle cycle
+* 1534 days is the length of a basic leap day cycle. Since leap days (rest days) occur when a stack closest to the troll has all the tiles, they normally occur one puzzle cycle apart. So a basic leap day cycle is 1534 days in 1533 moves.
+* 365 * 1534 / 1533 = 365.2381 days is the mean year length over the basic leap day cycle.
+* Each time a leap day occurs, a stone is moved one platform clockwise. The result of this is that after the last stone is moved, the next leap day occurs on the next platform, which is 219 moves out of phase. So a short leap day cycle is 1533 - 219 = 1314 moves = 1315 days.
+* 1533 moves * 7 + 1314 moves = 12045 moves in a comlete leap day cycle.
+* 12045 days per move + 8 rest days = 12053 days in a complete leap day cycle.
+* 1533 moves / 73 days per quint = 21 quints in a basic leap day cycle
+* 1314 moves / 73 days per quint = 18 quints in a short leap day cycle
+* 7 * 21 + 18 = 165 quints in a full leap day cycle
+* 165 / 5 = 33 years in a full leap day cycle
+* 12053 days / 33 years = 365 8/33 = 365.2424 days in a mean year
+* 1 day = 12053 days / 12045 moves = 1.000664176 days/move
+* Mean quint length = 73 * 12053 / 12045 days
+
+Lunar calculations:
+* 30 moves in a long month
+* 29 moves in a short month
+* 19 quints = 47 months
+* Mean lunation before 231 year correction = 73 * 12053 / 12045 * 19 / 47 = 29.530238556 days
+* 235 lunations / 19 years = 12 7/19 lunations/year in a Metonic cycle.
+* The black dot always goes around the outer of the two rings of circles, so the 231 year adjustment to the troll Metonic cycle is 1/30 lunation every 231 years. Number of lunations in 231 years is 231 * 235 / 19 - 1/30 = 2857 41 / 570 lunations.
+* (2857 + 41/570)/231 = 12.36827675 lunations per year
+* (365 + 8/33 ) / ((2857 + 41/570)/231) = 29.53058308 days per lunation with the 231 year correction. Note this value is a bit too short for the current era, but it is about right for AD 3375, which is about 6 full circles (a circle is 231 years) from the present era. For the present era, it would be more accurate to make a 2/59 lunation adjustment every 231 years. Using the troll device, that would be accomplished by alternating between the outer and inner circles. Since the black marker is 9 spots away from the intersection where it would switch to the 29 position circle, we're about 9 full circles away from that adjustment. By that time, the 1/30 lunation adjustment is more accurate (where we'd want to always use the outer loop), so it's simpler to use the 1/30 lunation adjustment in the first place.

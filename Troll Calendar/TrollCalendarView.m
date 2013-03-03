@@ -316,13 +316,13 @@
       //for (NSInteger index=0;index < 1;index++){
       PlatformView* pView = [[PlatformView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds)-750./2, CGRectGetMidY(self.bounds)-750./2, 750., 750.)];
       //Add platform image to pView
-      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Platform"
+      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Platform24"
                                                            ofType:@"png"];
       UIImage *platformImage = [[UIImage alloc] initWithContentsOfFile:filePath];
       UIImageView *platformImageView = [[UIImageView alloc] initWithImage:platformImage];
       platformImageView.center = CGPointMake(375.0,577.0);//+ = west,north for platform 0
       platformImageView.tag = 880+index;
-      platformImageView.transform = CGAffineTransformMakeScale(0.344, 0.344);
+      platformImageView.transform = CGAffineTransformMakeScale(0.6295, 0.6295);
       platformImageView.transform = CGAffineTransformRotate(platformImageView.transform, M_PI);
       [pView addSubview:platformImageView];
       //
