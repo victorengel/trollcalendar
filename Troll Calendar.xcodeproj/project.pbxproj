@@ -23,7 +23,7 @@
 		A706CAF716AA0B3E002DDF0A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A706CAF616AA0B3E002DDF0A /* CoreLocation.framework */; };
 		A706CAFC16AA0BA3002DDF0A /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAF816AA0BA3002DDF0A /* Icon-72.png */; };
 		A706CAFD16AA0BA3002DDF0A /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAF916AA0BA3002DDF0A /* Icon-Small.png */; };
-		A706CAFE16AA0BA3002DDF0A /* Icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAFA16AA0BA3002DDF0A /* Icon57.png */; };
+		A706CAFE16AA0BA3002DDF0A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAFA16AA0BA3002DDF0A /* Icon.png */; };
 		A706CAFF16AA0BA3002DDF0A /* Icon144.png in Resources */ = {isa = PBXBuildFile; fileRef = A706CAFB16AA0BA3002DDF0A /* Icon144.png */; };
 		A706CB0216AA0C0A002DDF0A /* TrollCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0116AA0C0A002DDF0A /* TrollCalendarView.m */; };
 		A706CB0516AA0C34002DDF0A /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = A706CB0416AA0C34002DDF0A /* Tower.m */; };
@@ -41,6 +41,10 @@
 		A7081E8F16B74DB4003C174C /* Platform.png in Resources */ = {isa = PBXBuildFile; fileRef = A7081E8E16B74DB3003C174C /* Platform.png */; };
 		A7468E6316D2DCE6009FD7BA /* circleBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = A7468E6216D2DCE6009FD7BA /* circleBlack.png */; };
 		A782701116AA53C500DA96D4 /* helpText in Resources */ = {isa = PBXBuildFile; fileRef = A782701016AA53C500DA96D4 /* helpText */; };
+		A7BCD6F516DC1D8300E12374 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A7BCD6F416DC1D8200E12374 /* iTunesArtwork */; };
+		A7BCD6F716DC1E7400E12374 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7BCD6F616DC1E7400E12374 /* Icon@2x.png */; };
+		A7BCD6F916DC1E8E00E12374 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = A7BCD6F816DC1E8E00E12374 /* Icon-Small-50.png */; };
+		A7BCD6FB16DC1F4400E12374 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7BCD6FA16DC1F4400E12374 /* Icon-Small@2x.png */; };
 		A7FF543316D16F4B00D6E82E /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543216D16F4B00D6E82E /* circle.png */; };
 		A7FF543616D17C8B00D6E82E /* circleGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543416D17C8B00D6E82E /* circleGrey.png */; };
 		A7FF543716D17C8B00D6E82E /* circleRed.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FF543516D17C8B00D6E82E /* circleRed.png */; };
@@ -68,7 +72,7 @@
 		A706CAF616AA0B3E002DDF0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A706CAF816AA0BA3002DDF0A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		A706CAF916AA0BA3002DDF0A /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		A706CAFA16AA0BA3002DDF0A /* Icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon57.png; sourceTree = "<group>"; };
+		A706CAFA16AA0BA3002DDF0A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		A706CAFB16AA0BA3002DDF0A /* Icon144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon144.png; sourceTree = "<group>"; };
 		A706CB0016AA0C0A002DDF0A /* TrollCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrollCalendarView.h; sourceTree = "<group>"; };
 		A706CB0116AA0C0A002DDF0A /* TrollCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrollCalendarView.m; sourceTree = "<group>"; };
@@ -89,6 +93,10 @@
 		A7081E8E16B74DB3003C174C /* Platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Platform.png; sourceTree = "<group>"; };
 		A7468E6216D2DCE6009FD7BA /* circleBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleBlack.png; sourceTree = "<group>"; };
 		A782701016AA53C500DA96D4 /* helpText */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = helpText; sourceTree = "<group>"; };
+		A7BCD6F416DC1D8200E12374 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		A7BCD6F616DC1E7400E12374 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../../../Troll Calendar/Troll Calendar/Icon@2x.png"; sourceTree = "<group>"; };
+		A7BCD6F816DC1E8E00E12374 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "../../../Troll Calendar/Troll Calendar/Icon-Small-50.png"; sourceTree = "<group>"; };
+		A7BCD6FA16DC1F4400E12374 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "../../../Troll Calendar/Troll Calendar/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		A7FF543216D16F4B00D6E82E /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		A7FF543416D17C8B00D6E82E /* circleGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleGrey.png; sourceTree = "<group>"; };
 		A7FF543516D17C8B00D6E82E /* circleRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleRed.png; sourceTree = "<group>"; };
@@ -178,9 +186,13 @@
 		A706CAD516AA0AC8002DDF0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7BCD6F416DC1D8200E12374 /* iTunesArtwork */,
+				A706CAFA16AA0BA3002DDF0A /* Icon.png */,
+				A7BCD6F616DC1E7400E12374 /* Icon@2x.png */,
 				A706CAF816AA0BA3002DDF0A /* Icon-72.png */,
+				A7BCD6F816DC1E8E00E12374 /* Icon-Small-50.png */,
 				A706CAF916AA0BA3002DDF0A /* Icon-Small.png */,
-				A706CAFA16AA0BA3002DDF0A /* Icon57.png */,
+				A7BCD6FA16DC1F4400E12374 /* Icon-Small@2x.png */,
 				A706CAFB16AA0BA3002DDF0A /* Icon144.png */,
 				A706CAD616AA0AC8002DDF0A /* Troll Calendar-Info.plist */,
 				A706CAD716AA0AC8002DDF0A /* InfoPlist.strings */,
@@ -253,7 +265,7 @@
 				A706CAEB16AA0AC8002DDF0A /* MainStoryboard_iPad.storyboard in Resources */,
 				A706CAFC16AA0BA3002DDF0A /* Icon-72.png in Resources */,
 				A706CAFD16AA0BA3002DDF0A /* Icon-Small.png in Resources */,
-				A706CAFE16AA0BA3002DDF0A /* Icon57.png in Resources */,
+				A706CAFE16AA0BA3002DDF0A /* Icon.png in Resources */,
 				A706CAFF16AA0BA3002DDF0A /* Icon144.png in Resources */,
 				A782701116AA53C500DA96D4 /* helpText in Resources */,
 				A7081E6516B5D9C9003C174C /* thetroll.png in Resources */,
@@ -271,6 +283,10 @@
 				A7FF543616D17C8B00D6E82E /* circleGrey.png in Resources */,
 				A7FF543716D17C8B00D6E82E /* circleRed.png in Resources */,
 				A7468E6316D2DCE6009FD7BA /* circleBlack.png in Resources */,
+				A7BCD6F516DC1D8300E12374 /* iTunesArtwork in Resources */,
+				A7BCD6F716DC1E7400E12374 /* Icon@2x.png in Resources */,
+				A7BCD6F916DC1E8E00E12374 /* Icon-Small-50.png in Resources */,
+				A7BCD6FB16DC1F4400E12374 /* Icon-Small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
